@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackWell'26</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="assets/had-logo.jpeg">
+    <link href="https://fonts.cdnfonts.com/css/digital-7" rel="stylesheet">
+    <!-- AOS for easier animations fallback if needed, but using IntersectionObserver -->
+</head>
+
+<body>
+    <!-- Loading Animation -->
+    <div class="id-loader" id="idLoader">
+        <div class="nn-visualizer">
+            <!-- SVG for Connections (Handled by JS) -->
+            <svg id="nn-connections" width="100%" height="100%"
+                style="position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; overflow: visible;"></svg>
+
+            <!-- Layers Container -->
+            <div class="nn-layer l-1">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="nn-layer l-2">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="nn-layer l-3">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="nn-layer l-4">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="nn-layer l-5">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+
+            <!-- Dynamic Connections (Visualized via CSS Gradients/Lines) -->
+            <div class="nn-connections-bg"></div>
+        </div>
+        <div class="loader-text-new">INITIALIZING NEURAL ARCHITECTURE...</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <!-- Logo (visible on scroll) -->
+            <a href="#home" class="logo-container">
+                <img src="assets/had-logo.jpeg" alt="HackWell Logo" class="nav-logo-img">
+                <span class="brand-text">HackWell <span class="brand-sep">–</span> <span class="brand-sub">AI &
+                        DS</span></span>
+            </a>
+
+            <!-- Horizontal Nav Links (visible on scroll) -->
+            <ul class="nav-links-horizontal">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#theme">Theme</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#rules">Rules</a></li>
+                <li><a href="#sponsors">Sponsors</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="problem-statements.html" class="btn-tech btn-tech-secondary nav-btn-tech">
+                        <span class="btn-text">Problem Statements</span>
+                        <span class="btn-border"></span>
+                    </a>
+                </li>
+                <li>
+                    <img src="assets/scelogo.jpg" alt="SCE Logo" class="nav-sce-logo">
+                </li>
+            </ul>
+
+            <!-- Menu Toggle (visible in Hero) -->
+            <div class="menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Right-Side Navigation Pane -->
+    <div class="nav-pane">
+        <button class="nav-pane-close">&times;</button>
+        <ul class="nav-pane-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#theme">Theme</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="problem-statements.html">Problem Statementst</a></li>
+        </ul>
+    </div>
+
+    <!-- Backdrop for pane -->
+    <div class="nav-backdrop"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="neural-canvas"></canvas>
+        <div class="hero-content fade-in">
+            <br>
+            <h1 class="head" data-text="HackWell'26">HackWell'26</h1>
+            <p class="subtitle" style="margin-bottom: 2rem;">
+                "Build Fast, Think Big, Innovate Smart"
+            </p>
+            <p class="initext">
+                An initiative of the <br> Department of Artificial Intelligence & Data Science,<br>Saranathan College of
+                Engineering
+            </p>
+
+            <br>
+            <h3 class="timer-label">ESTABLISHING_INFERENCE_UPLINK</h3></br>
+            <div class="flip-timer">
+                <div class="flip-unit" id="days">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="hours">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="mins">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">MINUTES</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="secs">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">SECONDS</div>
+                </div>
+            </div>
+
+            <div class="hero-btns fade-in">
+                <!--<a href="#" onclick="showHolographicAlert('Registration opens on Feb 2'); return false;"
+                    class="btn-tech btn-tech-primary">
+                    <span class="btn-text">Register Now</span>
+                    <span class="btn-border"></span>
+                </a>-->
+                <a href="https://forms.gle/TSAXx7FNM1T56Yrg8" class="btn-tech btn-tech-primary" target="_blank">
+                    <span class="btn-text">Register</span>
+                    <span class="btn-border"></span>
+                </a>
+                <a href="problem-statements.html" class="btn-tech btn-tech-primary">
+                    <span class="btn-text">Problem Statements</span>
+                    <span class="btn-border"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Section -->
+    <section id="theme">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Themes</h2>
+            <p class="section-subtitle">Exploring the Frontiers of AI</p>
+        </div>
+
+        <div class="theme-grid">
+            <div class="card fade-in delay-100">
+                <h3>Climate Tech & Green Innovation</h3>
+                <p>Developing sustainable solutions using AI to monitor, model, and mitigate environmental challenges
+                    for a greener future.</p>
+            </div>
+            <div class="card fade-in delay-200">
+                <h3>AI for Everyone</h3>
+                <p>Democratizing Artificial Intelligence by creating accessible, inclusive, and user-friendly tools that
+                    empower individuals across all domains.</p>
+            </div>
+            <div class="card fade-in delay-300">
+                <h3>Campus to Corporate</h3>
+                <p>Bridging the gap between academic learning and industry demands through intelligent career
+                    development and skill-mapping systems.</p>
+            </div>
+            <div class="card fade-in delay-400">
+                <h3>Applied Generative AI</h3>
+                <p>Harnessing the power of LLMs and generative models to create novel applications in content creation,
+                    coding, and design.</p>
+            </div>
+            <div class="card fade-in delay-500">
+                <h3>Intelligent Systems</h3>
+                <p>Building autonomous, adaptive, and efficient systems that integrate hardware and software for smart
+                    automation and decision-making.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section id="sponsors">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Sponsors</h2>
+            <p class="section-subtitle">Supported by Industry Leaders</p>
+        </div>
+
+        <div class="sponsors-grid fade-in">
+            <img src="./assets/microsoft-logo.jpeg" alt="Microsoft" class="sponsor-logo" loading="lazy" width="200"
+                height="80">
+            <img src="./assets/tech-shiksha.jpg" alt="Tech Shiksha" class="sponsor-logo" loading="lazy" width="200"
+                height="80">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <h2 class="section-title">About HackWell</h2>
+            <p class="section-subtitle">Innovate, Implement, Inspire</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-col fade-in">
+                <h3>About Saranathan College of Engineering</h3>
+                <p>
+                    Saranathan College of Engineering was founded by ‘Vidya Seva Ratnam’ and ‘Guru Seva Mani’ Auditor
+                    Sri. K. Santhanam in the year 1998. It is a self-financing institution approved by AICTE and
+                    attained autonomous status in 2025. The college currently has an annual intake of 720 students
+                    across 10 undergraduate programs and 132 students across 5 postgraduate programs.
+                </p>
+                <p>
+                    Among its academic offerings, the Department of Artificial Intelligence and Data Science, introduced
+                    in 2021, stands out for its focus on emerging technologies and innovation. The department actively
+                    promotes hands-on learning and problem-solving through initiatives such as the Hackwell Hackathon,
+                    K-Thursday, and its own student-driven Odysseys Club.
+                </p>
+                <p>
+                    With consistent placement records, active participation in professional bodies, entrepreneurship
+                    initiatives supported by the Government of Tamil Nadu, and a vibrant student community, Saranathan
+                    College of Engineering continues to be a preferred destination for aspiring engineers and
+                    innovators.
+                </p>
+            </div>
+
+            <div class="about-col fade-in">
+                <h3>About HackWell</h3>
+                <p>
+                    Hackwell serves as a powerful catalyst for innovation and experiential learning by transforming
+                    ideas into impactful, real-world solutions. The hackathon creates an immersive environment where
+                    students move beyond classroom learning and actively engage with practical challenges using
+                    cutting-edge technologies.
+                </p>
+                <p>
+                    Hackwell fosters a culture of creativity and continuous learning, encouraging students to think
+                    independently, experiment boldly, and push the boundaries of innovation. It also acts as a vital
+                    bridge between academia and industry by exposing participants to current technological trends,
+                    industry-relevant problem statements, and real-time development practices.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Event Timeline</h2>
+            <p class="section-subtitle">The Roadmap to Innovation</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-date">02 February 2026</div>
+                <h3 class="timeline-title">Registration Opens</h3>
+                <p style="color: var(--text-secondary);">Start forming your teams and registering for the event.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-date">5 February 2026</div>
+                <h3 class="timeline-title">Registration Closes</h3>
+                <p style="color: var(--text-secondary);">Final deadline for team registrations.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-date">23 February 2026</div>
+                <h3 class="timeline-title">Preliminary Round</h3>
+                <p style="color: var(--text-secondary);">Initial evaluation and shortlisting of teams.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-date">4 March 2026</div>
+                <h3 class="timeline-title">Finals</h3>
+                <p style="color: var(--text-secondary);">The ultimate showdown - present your solutions and compete for
+                    the top spot.</p>
+            </div>
+        </div>
+
+        <p
+            style="text-align: center; margin-top: 2rem; color: var(--text-tertiary); font-size: 0.9rem; font-style: italic;">
+            *All dates are tentative and subject to change
+        </p>
+    </section>
+
+    <!-- Rules Section -->
+    <section id="rules">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Rules & Guidelines</h2>
+        </div>
+
+        <div class="rules-container fade-in" style="max-width: 900px; margin: 0 auto;">
+            <div class="card" style="padding: 2rem;">
+                <ol class="rules-list"
+                    style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem; display: grid; gap: 1rem;">
+                    <li>Each team should consist of only four members.</li>
+                    <li>All notifications will be shared through the Team Leader.</li>
+                    <li>Teams must submit their problem statement and abstract within the specified deadline.</li>
+                    <li>Open-source libraries, APIs, and datasets may be used.</li>
+                    <li>Judges’ decisions are final and must be accepted by all participants.</li>
+                    <li>Only Artificial Intelligence and Data Science students are eligible to participate.</li>
+                    <li>Registration is free of cost (food per head is 150).</li>
+                    <li>Teams must be present at the venue on time; latecomers may be disqualified.</li>
+                    <li>Each team must bring their own laptops, chargers, and required tools.</li>
+                    <li>Internet facilities will be provided, but participants are encouraged to have a backup
+                        connection.</li>
+                    <li>Teams must maintain decorum, respect, and professional conduct throughout the event.</li>
+                    <li>Any form of misconduct, plagiarism, or rule violation will result in immediate disqualification.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Contact & Footer -->
+    <section id="contact" style="padding-bottom: 2rem;">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Contact Us</h2>
+        </div>
+        <div class="contact-container fade-in"></div>
+        <div class="clgadd">
+            <p>Saranathan College of Engineering Venkateswara Nagar, </p>
+            <p> Trichy-Madurai Main Road (NH 45 B), Edamalaipatti Pudhur (Post),</p>
+            <p> Panjappur, Thiruchirappalli - 620012</p>
+        </div>
+
+        <div>
+            <br>
+            <p style=" color: var(--text-secondary);">
+                For any queries or assistance, feel free to reach out to our coordinators:
+            </p>
+        </div>
+
+
+        <div class="contact-links">
+            <br>
+            <div class="contact-item">Email: aidshackwell@gmail.com</div>
+            <div class="contact-item">Boy's Co-ordinator : +91 9487153739 </div>
+            <div class="contact-item">Girl's Co-ordinator : +91 9150303043 </div>
+        </div>
+
+        <div class="social-icons">
+            <a href="http://www.linkedin.com/in/hackwell-ai-ds-7333463a9" class="social-icon" target="_blank">in</a>
+
+            <a href="https://www.instagram.com/aids.hackwell?utm_source=qr&igsh=NjZweGMzMWV6YWp5" target="_blank"> <img
+                    class="social-icon" src="assets/insta.jpeg" alt="instagram"></a>
+        </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 HackWell | Saranathan College of Engineering</p>
+    </footer>
+
+    <!-- Holographic Alert Modal -->
+    <div id="holo-overlay" class="holo-overlay">
+        <div class="holo-modal">
+            <div class="holo-header">INFO_ALERT // SYSTEM_MSG</div>
+            <div class="holo-content">
+                <p id="holo-message">Alert Message</p>
+            </div>
+            <button class="holo-close" onclick="closeHolographicAlert()">ACKNOWLEDGE</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
