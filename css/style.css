@@ -398,6 +398,9 @@ body::after {
     animation: textPulse 2s infinite;
     opacity: 0;
     animation: fadeInText 1s ease forwards 0.5s, textPulse 2s infinite 1.5s;
+    text-align: center;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 @keyframes fadeInText {
@@ -574,9 +577,13 @@ nav.scrolled .nav-links-horizontal {
 }
 
 nav.scrolled .menu-toggle {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    /* opacity: 0; */
+    /* visibility: hidden; */
+    /* pointer-events: none; */
+    /* Keep visible on scroll as requested */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .menu-toggle .more-symbol {
@@ -1194,7 +1201,7 @@ nav.scrolled .menu-toggle {
 
 .btn-tech {
     /* Reset from previous attempt logic */
-    background: var(--accent-glow);
+    /* background: var(--accent-glow); -- REMOVED CAUSING SOLID BLUE */
     /* Border Color */
     padding: 2px;
     /* Border Thickness */
@@ -1239,8 +1246,8 @@ nav.scrolled .menu-toggle {
 
 /* Primary Button Specifics */
 .btn-tech-primary .btn-border {
-    background: rgba(0, 242, 255, 0.05);
-    /* Very faint blue tint instead of solid */
+    background: transparent;
+    /* Removed tint to match secondary style */
     border-color: var(--accent-glow);
 }
 
@@ -2370,7 +2377,7 @@ footer {
 
     /* Nav Adjustments */
     .menu-toggle {
-        padding: 5px;
+        padding: 2px;
         display: flex !important;
         /* Force visible on mobile */
         opacity: 1 !important;
@@ -2389,6 +2396,11 @@ footer {
         right: -90%;
         /* Fully hide */
     }
+
+    .loader-text-new {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
 }
 
 /* Hamburger Menu Styling */
@@ -2404,7 +2416,8 @@ footer {
 .menu-toggle .bar {
     width: 100%;
     height: 3px;
-    background-color: var(--text-primary);
+    height: 3px;
+    background-color: white !important;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
@@ -2646,4 +2659,41 @@ footer {
     background: var(--accent-primary);
     color: #fff;
     box-shadow: 0 0 20px var(--accent-primary);
+}
+
+/* FORCE OVERRIDES FOR BURGER MENU */
+.menu-toggle {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 99999 !important;
+}
+
+.menu-toggle .bar {
+    background-color: #ffffff !important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    /* contrast against white background if any */
+}
+
+/* Ensure secondary buttons in hero match the transparent logic */
+.hero-btns .btn-tech-secondary {
+    background: transparent !important;
+}
+
+.hero-btns .btn-tech-secondary .btn-border {
+    background: transparent !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Comment out/Disable conflicting .btn-tech background rules */
+/*
+.hero-btns .btn-tech-secondary::before {
+    background: transparent !important;
+    display: none !important;
+}
+*/
+
+/* Hide ::after on btn-tech-secondary */
+.hero-btns .btn-tech-secondary::after {
+    display: none !important;
 }
