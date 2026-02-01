@@ -5,10 +5,14 @@
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap');
-/* Attempt Digital-7 Import again directly in CSS */
-@import url('https://fonts.cdnfonts.com/css/digital-7');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
 
 /* Custom Font */
+@font-face {
+    font-family: 'Digital-7';
+    src: url('/fonts/Digital-7.woff2') format('woff2');
+    font-display: swap;
+}
 
 
 :root {
