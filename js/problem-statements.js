@@ -233,12 +233,12 @@
         },
         'HAD-18': {
             id: 'HAD-18',
-            title: 'Community Climate Action Platform',
+            title: 'AI-Generated Climate Futures (Multiple Timelines)',
             theme: 'AI for Everyone',
-            background: 'Low participation in climate action.',
-            abstract: 'Low participation reduces climate impact. This problem gamifies climate action.',
-            challenge: 'Gamify and track community climate actions.',
-            stakeholders: 'Communities'
+            background: 'People can\'t feel future climate impact because it\'s abstract.',
+            abstract: 'AI generates parallel climate futures for the same location based on different decisions.',
+            challenge: 'Scenario simulation, LLM-based narrative generation',
+            stakeholders: 'People'
         },
         'HAD-19': {
             id: 'HAD-19',
@@ -269,12 +269,12 @@
         },
         'HAD-22': {
             id: 'HAD-22',
-            title: 'Internship-to-Full-Time Conversion Predictor',
+            title: 'AI That Detects Learning Plateaus Early',
             theme: 'Campus to Corporate',
-            background: 'Interns lack clarity on conversion chances.',
-            abstract: 'Intern conversion is uncertain. This problem predicts and explains conversion likelihood.',
-            challenge: 'Predict conversion probability using AI.',
-            stakeholders: 'Students, employers'
+            background: 'Many students stop growing without realizing it.',
+            abstract: 'AI detects learning stagnation before it becomes career stagnation.',
+            challenge: 'Build an AI that alerts students when their learning curve flattens.Progress trend analysis and Anomaly detection',
+            stakeholders: 'Students'
         },
         'HAD-23': {
             id: 'HAD-23',
