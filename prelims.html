@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preliminary Results | HackWell'26</title>
+    <link rel="stylesheet" href="css/prelims.css">
+    <link rel="icon" type="image/jpeg" href="assets/had-logo.jpeg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="index.html" class="logo-container">
+                <img src="assets/had-logo.jpeg" alt="HackWell Logo" class="nav-logo-img">
+                <span class="brand-text">HackWell <span class="brand-sep">–</span> <span class="brand-sub">AI & DS</span></span>
+            </a>
+
+            <!-- Horizontal Nav Links (desktop) -->
+            <ul class="nav-links-horizontal">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#theme">Theme</a></li>
+                <li><a href="index.html#timeline">Timeline</a></li>
+                <li><a href="index.html#rules">Rules</a></li>
+                <li><a href="index.html#sponsors">Sponsors</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <!-- Menu Toggle (mobile options button) -->
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Right-Side Navigation Pane (mobile) -->
+    <div class="nav-pane">
+        <button class="nav-pane-close">&times;</button>
+        <ul class="nav-pane-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#theme">Theme</a></li>
+            <li><a href="index.html#timeline">Timeline</a></li>
+            <li><a href="index.html#rules">Rules</a></li>
+            <li><a href="index.html#sponsors">Sponsors</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Backdrop for pane -->
+    <div class="nav-backdrop"></div>
+
+    <!-- Results Header -->
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <header class="results-header fade-in">
+            <h1 class="section-title">Preliminary Round Results</h1>
+            <p class="section-subtitle"><br>Congratulations to the teams advancing to the next stage!</p>
+        </header>
+
+        <!-- Results Table -->
+        <div class="results-table-container fade-in">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Team Name</th>
+                        <th>Team Leader</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Rows will be injected by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 5rem; text-align: center; padding-bottom: 2rem;">
+        <p style="color: var(--text-secondary);">© 2026 HackWell | Saranathan College of Engineering</p>
+    </footer>
+
+    <script src="js/prelims.js"></script>
+</body>
+
+</html>
