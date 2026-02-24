@@ -45,15 +45,37 @@
 
     // ==================== RESULTS DATA & RENDERING ====================
 
-    // Dummy data for preliminary results (30 rows as requested)
-    const preliminaryResults = [];
-    for (let i = 1; i <= 30; i++) {
-        preliminaryResults.push({
-            sno: i,
-            teamName: `Team Alpha ${i}`,
-            teamLeader: `Participant ${i}`
-        });
-    }
+    // Preliminary results data
+    const preliminaryResults = [
+        { sno: 1, teamName: "Forza core", teamLeader: "Oviya A" },
+        { sno: 2, teamName: "Psychguard", teamLeader: "Divyasri R" },
+        { sno: 3, teamName: "Lunar Lumina", teamLeader: "Kishore K" },
+        { sno: 4, teamName: "Ai Alchemists", teamLeader: "Harsith S" },
+        { sno: 5, teamName: "SheQuads", teamLeader: "Birundha M" },
+        { sno: 6, teamName: "AtmosTech", teamLeader: "Thejasvilini B" },
+        { sno: 7, teamName: "Dynamo", teamLeader: "Divya Dharshini S" },
+        { sno: 8, teamName: "Hackathon Hackers", teamLeader: "Kalyan V" },
+        { sno: 9, teamName: "Infinite Loopers", teamLeader: "Suyambusree" },
+        { sno: 10, teamName: "Tech Dudes", teamLeader: "Jeeva S" },
+        { sno: 11, teamName: "Akaza", teamLeader: "Tanusri K" },
+        { sno: 12, teamName: "Enceladus", teamLeader: "Sayeeda Fathima S" },
+        { sno: 13, teamName: "FlowForge", teamLeader: "Mahalakshmi V" },
+        { sno: 14, teamName: "Agile", teamLeader: "Nagammai" },
+        { sno: 15, teamName: "Team Enable", teamLeader: "Rishe Varthanaa" },
+        { sno: 16, teamName: "Matrix Infinity", teamLeader: "Varuna G" },
+        { sno: 17, teamName: "Brainy Bunch", teamLeader: "Rifa Fathima M" },
+        { sno: 18, teamName: "Sternritters", teamLeader: "Mohan Viknesh S" },
+        { sno: 19, teamName: "War Coders", teamLeader: "Bharathi S P" },
+        { sno: 20, teamName: "Alchemy", teamLeader: "Bharanika R" },
+        { sno: 21, teamName: "Digitronauts", teamLeader: "Priyadharshini A" },
+        { sno: 22, teamName: "TechSpark", teamLeader: "Thamarai Selvan S" },
+        { sno: 23, teamName: "Eighth Miracle", teamLeader: "Asqar Ali S M S" },
+        { sno: 24, teamName: "Assassins", teamLeader: "Vaakith Iman Ali H A" },
+        { sno: 25, teamName: "Zekrom", teamLeader: "Vamsi Krishnan S" },
+        { sno: 26, teamName: "HackHive", teamLeader: "Pooja Sri M" },
+        { sno: 27, teamName: "Sparkon", teamLeader: "Swarnamalyaa M" },
+        { sno: 28, teamName: "Griffins", teamLeader: "Sheryl Hephzibah S" },
+    ];
 
     const resultsBody = document.getElementById('results-body');
 
