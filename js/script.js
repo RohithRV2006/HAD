@@ -178,7 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Flip Timer ---
-    const targetDate = new Date('March 4, 2026 00:00:00').getTime();
+    // Target: 4 March 2026, 07:00 AM IST (UTC+5:30 = 01:30 UTC)
+    const targetDate = new Date('2026-03-04T01:30:00Z').getTime();
 
     function updateCard(unitId, newValue) {
         const unit = document.getElementById(unitId);
@@ -229,7 +230,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            // Handle timer expiry if needed
+            // Timer expired — show zeros then vanish
+            updateCard('days', 0);
+            updateCard('hours', 0);
+            updateCard('mins', 0);
+            updateCard('secs', 0);
+            clearInterval(timerInterval);
+
+            // Fade out timer label and flip-timer
+            const timerLabel = document.querySelector('.timer-label');
+            const flipTimer = document.querySelector('.flip-timer');
+            [timerLabel, flipTimer].forEach(el => {
+                if (el) {
+                    el.style.transition = 'opacity 1s ease, max-height 1s ease';
+                    el.style.opacity = '0';
+                    setTimeout(() => { el.style.display = 'none'; }, 1000);
+                }
+            });
             return;
         }
 
@@ -246,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize immediately to avoid 00 flash
     runTimer();
-    setInterval(runTimer, 1000);
+    const timerInterval = setInterval(runTimer, 1000);
 
 
     // --- Add Staggered Delays for Animation ---
@@ -703,25 +720,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Holographic Alert Logic
-    window.showHolographicAlert = function (message) {
-        const overlay = document.getElementById('holo-overlay');
-        const msgEl = document.getElementById('holo-message');
-        if (overlay && msgEl) {
-            msgEl.textContent = message;
-            overlay.classList.add('active');
-        }
-    };
+window.showHolographicAlert = function (message) {
+    const overlay = document.getElementById('holo-overlay');
+    const msgEl = document.getElementById('holo-message');
+    if (overlay && msgEl) {
+        msgEl.textContent = message;
+        overlay.classList.add('active');
+    }
+};
 
-    window.closeHolographicAlert = function () {
-        const overlay = document.getElementById('holo-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-        }
-    };
+window.closeHolographicAlert = function () {
+    const overlay = document.getElementById('holo-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+};
 
-    // Close on outside click
-    document.getElementById('holo-overlay')?.addEventListener('click', (e) => {
-        if (e.target.id === 'holo-overlay') {
-            closeHolographicAlert();
-        }
-    });
+// Close on outside click
+document.getElementById('holo-overlay')?.addEventListener('click', (e) => {
+    if (e.target.id === 'holo-overlay') {
+        closeHolographicAlert();
+    }
+});
