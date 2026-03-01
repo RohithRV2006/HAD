@@ -178,8 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Flip Timer ---
-    // Target: 4 March 2026, 07:00 AM IST (UTC+5:30 = 01:30 UTC)
-    const targetDate = new Date('2026-03-04T01:30:00Z').getTime();
+    // Phase 1 Target: 4 March 2026, 07:00 AM IST (UTC+5:30 = 01:30 UTC) — Hackathon Start
+    const hackathonStart = new Date('2026-03-04T01:30:00Z').getTime();
+    // Phase 2 Target: 4 March 2026, 07:00 PM IST (UTC+5:30 = 13:30 UTC) — Hackathon End (12 hrs)
+    const hackathonEnd = new Date('2026-03-04T13:30:00Z').getTime();
+
+    let currentPhase = 'pre'; // 'pre' = before hackathon, 'live' = during hackathon, 'done' = after
 
     function updateCard(unitId, newValue) {
         const unit = document.getElementById(unitId);
@@ -227,38 +231,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function runTimer() {
         const now = new Date().getTime();
-        const diff = targetDate - now;
+        const timerLabel = document.querySelector('.timer-label');
+        const flipTimer = document.querySelector('.flip-timer');
+        const daysUnit = document.getElementById('days');
+        // Find the colon right after the days unit
+        const daysColon = daysUnit ? daysUnit.nextElementSibling : null;
 
-        if (diff <= 0) {
-            // Timer expired — show zeros then vanish
-            updateCard('days', 0);
-            updateCard('hours', 0);
-            updateCard('mins', 0);
-            updateCard('secs', 0);
-            clearInterval(timerInterval);
+        // Phase 1: Before hackathon starts — count down to 7 AM
+        if (now < hackathonStart) {
+            if (currentPhase !== 'pre') {
+                currentPhase = 'pre';
+                if (timerLabel) timerLabel.textContent = 'ESTABLISHING_INFERENCE_UPLINK';
+                // Show days unit and its colon
+                if (daysUnit) daysUnit.style.display = '';
+                if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = '';
+            }
 
-            // Fade out timer label and flip-timer
-            const timerLabel = document.querySelector('.timer-label');
-            const flipTimer = document.querySelector('.flip-timer');
-            [timerLabel, flipTimer].forEach(el => {
-                if (el) {
-                    el.style.transition = 'opacity 1s ease, max-height 1s ease';
-                    el.style.opacity = '0';
-                    setTimeout(() => { el.style.display = 'none'; }, 1000);
-                }
-            });
+            const diff = hackathonStart - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            updateCard('days', days);
+            updateCard('hours', hours);
+            updateCard('mins', minutes);
+            updateCard('secs', seconds);
+        }
+        // Phase 2: Hackathon is LIVE — count down to 7 PM (12 hrs)
+        else if (now < hackathonEnd) {
+            if (currentPhase !== 'live') {
+                currentPhase = 'live';
+                if (timerLabel) timerLabel.textContent = 'HACKATHON_IN_PROGRESS';
+                // Hide the days unit and its colon during live phase
+                if (daysUnit) daysUnit.style.display = 'none';
+                if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = 'none';
+            }
+
+            const diff = hackathonEnd - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            updateCard('hours', hours);
+            updateCard('mins', minutes);
+            updateCard('secs', seconds);
+        }
+        // Phase 3: Hackathon ended — show zeros then fade out
+        else {
+            if (currentPhase !== 'done') {
+                currentPhase = 'done';
+                updateCard('days', 0);
+                updateCard('hours', 0);
+                updateCard('mins', 0);
+                updateCard('secs', 0);
+                clearInterval(timerInterval);
+
+                // Fade out timer label and flip-timer
+                [timerLabel, flipTimer].forEach(el => {
+                    if (el) {
+                        el.style.transition = 'opacity 1s ease, max-height 1s ease';
+                        el.style.opacity = '0';
+                        setTimeout(() => { el.style.display = 'none'; }, 1000);
+                    }
+                });
+            }
             return;
         }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        updateCard('days', days);
-        updateCard('hours', hours);
-        updateCard('mins', minutes);
-        updateCard('secs', seconds);
     }
 
     // Initialize immediately to avoid 00 flash
@@ -666,8 +705,11 @@ document.addEventListener('DOMContentLoaded', () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(37, 99, 235, 0.5)'; // Electric Blue
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.7)'; // Electric Blue
+                ctx.shadowColor = 'rgba(37, 99, 235, 0.8)';
+                ctx.shadowBlur = 12;
                 ctx.fill();
+                ctx.shadowBlur = 0; // Reset for lines
             }
         }
 

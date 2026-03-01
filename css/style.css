@@ -1645,6 +1645,19 @@ section {
 .timeline-item.visible:not(:last-child)::before {
     background: var(--accent-primary);
     box-shadow: 0 0 25px rgba(1, 13, 39, 0.8);
+    animation: dotGlow 2s ease-in-out infinite;
+}
+
+@keyframes dotGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(37, 99, 235, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(37, 99, 235, 1), 0 0 40px rgba(37, 99, 235, 0.4);
+    }
 }
 
 /* Stagger the dots lighting up strictly from top to bottom */
