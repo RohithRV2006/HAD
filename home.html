@@ -782,20 +782,44 @@
         <p>© 2026 HackWell | Saranathan College of Engineering</p>
     </footer>
 
-    <script>
+    <script type="module">
         // ==========================================
         //  HackWell'26 — Home Timer Logic
+        //  Firebase Firestore Real-Time Edition
         // ==========================================
 
+        // ── Firebase v9 Modular SDK (CDN) ──
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore, doc, onSnapshot, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        // ┌──────────────────────────────────────────────────┐
+        // │  🔧 FIREBASE CONFIG — PASTE YOUR VALUES BELOW   │
+        // └──────────────────────────────────────────────────┘
+        const firebaseConfig = {
+            apiKey: "AIzaSyDtBzbBmppY0opojnZHcX7RTuu36MWKnq8",
+            authDomain: "hackwell-26.firebaseapp.com",
+            projectId: "hackwell-26",
+            storageBucket: "hackwell-26.firebasestorage.app",
+            messagingSenderId: "624328421647",
+            appId: "1:624328421647:web:ee8c68f25c8245759fce7a"
+        };
+
+        // ── Initialize Firebase ──
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // ── Firestore document reference ──
+        const stateDocRef = doc(db, 'hackathon_timer', 'state');
+
+        // ── Constants ──
         // Target: March 4th, 2026, 7:00 AM IST (UTC+5:30 → 01:30 UTC)
         const PRE_HACKATHON_END = new Date('2026-03-04T01:30:00Z').getTime();
-        // 12-hour hackathon duration in ms
-        const HACKATHON_DURATION = 12 * 60 * 60 * 1000;
+        const HACKATHON_DURATION = 12 * 60 * 60 * 1000; // 12 hours in ms
 
-        // Keys for localStorage (persists across refreshes & deployments)
-        const LS_KEY_STARTED = 'hackwell_hackathon_started';
-        const LS_KEY_START_TIME = 'hackwell_hackathon_start_time';
-
+        // ── Shared state (updated by Firestore listener) ──
+        let hackState = { started: false, startTime: null };
         let currentPhase = null; // 'pre' | 'live' | 'done'
         let timerInterval = null;
 
@@ -806,7 +830,7 @@
         const daysColon = daysUnit ? daysUnit.nextElementSibling : null;
         const startBtn = document.getElementById('startBtn');
 
-        // ── Flip Card Update ──
+        // ── Flip Card Update (unchanged) ──
         function updateCard(unitId, newValue) {
             const unit = document.getElementById(unitId);
             if (!unit) return;
@@ -837,83 +861,116 @@
             }
         }
 
-        // ── Check if hackathon was manually started ──
-        function isHackathonStarted() {
-            return localStorage.getItem(LS_KEY_STARTED) === 'true';
+        // ==========================================
+        //  Admin Authentication Helper
+        // ==========================================
+        async function adminAuth() {
+            // If already signed in, reuse
+            if (auth.currentUser) return true;
+
+            const email = prompt('🔐 Admin Email:');
+            if (!email) return false;
+            const password = prompt('🔑 Admin Password:');
+            if (!password) return false;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                console.log('%c✅ Admin authenticated.', 'color: #4ade80; font-size: 14px; font-weight: bold;');
+                return true;
+            } catch (err) {
+                console.error('%c❌ Authentication failed:', 'color: #f87171; font-size: 14px; font-weight: bold;', err.message);
+                alert('❌ Authentication failed: ' + err.message);
+                return false;
+            }
         }
 
-        function getHackathonStartTime() {
-            const t = localStorage.getItem(LS_KEY_START_TIME);
-            return t ? parseInt(t, 10) : null;
-        }
+        // ==========================================
+        //  Firestore Write Functions (Admin Only)
+        // ==========================================
 
-        function getHackathonEndTime() {
-            const start = getHackathonStartTime();
-            return start ? start + HACKATHON_DURATION : null;
-        }
+        // ── START HACKATHON (button click) ──
+        window.startHackathon = async function () {
+            if (hackState.started) return; // already started
 
-        // ── START button handler — can be clicked ANYTIME ──
-        function startHackathon() {
-            if (isHackathonStarted()) return; // already started
+            const authed = await adminAuth();
+            if (!authed) return;
 
             // 🎉 Fire confetti!
             launchConfetti();
 
-            const now = Date.now();
-            localStorage.setItem(LS_KEY_STARTED, 'true');
-            localStorage.setItem(LS_KEY_START_TIME, String(now));
-
-            // Force an immediate re-evaluation
-            currentPhase = null;
-            runTimer();
-        }
+            try {
+                await setDoc(stateDocRef, {
+                    started: true,
+                    startTime: Date.now()
+                });
+                console.log('%c🚀 Hackathon STARTED (synced to Firestore).', 'color: #60A5FA; font-size: 14px; font-weight: bold;');
+            } catch (err) {
+                console.error('%c❌ Failed to start hackathon:', 'color: #f87171;', err.message);
+                alert('❌ Failed to start: ' + err.message);
+            }
+        };
 
         // ── RESET (console only) ──
-        window.resetHackathon = function () {
-            localStorage.removeItem(LS_KEY_STARTED);
-            localStorage.removeItem(LS_KEY_START_TIME);
-            currentPhase = null;
-            console.log('%c✅ Hackathon timer has been RESET.', 'color: #4ade80; font-size: 14px; font-weight: bold;');
-            console.log('%cRefreshing page...', 'color: #60A5FA; font-size: 12px;');
-            location.reload();
+        window.resetHackathon = async function () {
+            const authed = await adminAuth();
+            if (!authed) return;
+
+            try {
+                await setDoc(stateDocRef, {
+                    started: false,
+                    startTime: null
+                });
+                currentPhase = null;
+                console.log('%c✅ Hackathon timer has been RESET (synced to Firestore).', 'color: #4ade80; font-size: 14px; font-weight: bold;');
+            } catch (err) {
+                console.error('%c❌ Failed to reset:', 'color: #f87171;', err.message);
+            }
         };
 
         // ── END HACKATHON (console only) ──
-        window.endHackathon = function () {
-            if (!isHackathonStarted()) {
+        window.endHackathon = async function () {
+            if (!hackState.started) {
                 console.log('%c⚠️ Hackathon has not been started yet.', 'color: #f59e0b; font-size: 14px; font-weight: bold;');
                 return;
             }
-            // Set start time far enough in the past so it appears ended
-            localStorage.setItem(LS_KEY_START_TIME, String(Date.now() - HACKATHON_DURATION - 1000));
-            currentPhase = null;
-            console.log('%c🏁 Hackathon has been ENDED.', 'color: #f87171; font-size: 14px; font-weight: bold;');
-            console.log('%cRefreshing page...', 'color: #60A5FA; font-size: 12px;');
-            location.reload();
+
+            const authed = await adminAuth();
+            if (!authed) return;
+
+            try {
+                // Set startTime far in the past so it appears ended
+                await setDoc(stateDocRef, {
+                    started: true,
+                    startTime: Date.now() - HACKATHON_DURATION - 1000
+                });
+                currentPhase = null;
+                console.log('%c🏁 Hackathon has been ENDED (synced to Firestore).', 'color: #f87171; font-size: 14px; font-weight: bold;');
+            } catch (err) {
+                console.error('%c❌ Failed to end hackathon:', 'color: #f87171;', err.message);
+            }
         };
 
-
-
-        // ── Main Timer Loop ──
+        // ==========================================
+        //  Main Timer Loop (reads from hackState)
+        // ==========================================
         function runTimer() {
             const now = Date.now();
 
-            const hackathonStarted = isHackathonStarted();
-            const hackathonEnd = getHackathonEndTime();
+            const hackathonStarted = hackState.started;
+            const hackathonEnd = hackState.startTime
+                ? hackState.startTime + HACKATHON_DURATION
+                : null;
 
-            // Phase 1: Hackathon NOT started yet — show pre-hackathon countdown + Start button
+            // Phase 1: Hackathon NOT started yet
             if (!hackathonStarted) {
                 if (currentPhase !== 'pre') {
                     currentPhase = 'pre';
                     timerLabel.textContent = 'ESTABLISHING_INFERENCE_UPLINK';
-                    // Show days + its colon
                     if (daysUnit) daysUnit.style.display = '';
                     if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = '';
-                    // Show start button
                     startBtn.classList.remove('hidden');
                 }
 
-                // If before March 4 7am, count down to it
                 if (now < PRE_HACKATHON_END) {
                     const diff = PRE_HACKATHON_END - now;
                     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -926,22 +983,19 @@
                     updateCard('mins', m);
                     updateCard('secs', s);
                 } else {
-                    // Past the target — show 00:00:00:00 but keep start button
                     updateCard('days', 0);
                     updateCard('hours', 0);
                     updateCard('mins', 0);
                     updateCard('secs', 0);
                 }
             }
-            // Phase 2: Hackathon is LIVE — 12 hr countdown (Hrs, Mins, Secs only)
+            // Phase 2: Hackathon is LIVE
             else if (hackathonStarted && hackathonEnd && now < hackathonEnd) {
                 if (currentPhase !== 'live') {
                     currentPhase = 'live';
                     timerLabel.textContent = 'HACKATHON_IN_PROGRESS';
-                    // Hide days + colon
                     if (daysUnit) daysUnit.style.display = 'none';
                     if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = 'none';
-                    // Hide start button
                     startBtn.classList.add('hidden');
                 }
 
@@ -959,7 +1013,6 @@
                 if (currentPhase !== 'done') {
                     currentPhase = 'done';
                     timerLabel.textContent = 'HACKATHON_COMPLETE';
-                    // Hide days + colon
                     if (daysUnit) daysUnit.style.display = 'none';
                     if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = 'none';
                     startBtn.classList.add('hidden');
@@ -974,19 +1027,42 @@
             }
         }
 
-        // ── Neural Network Canvas ──
+        // ==========================================
+        //  Firestore Real-Time Listener
+        // ==========================================
+        onSnapshot(stateDocRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.data();
+                hackState.started = data.started || false;
+                hackState.startTime = data.startTime || null;
+            } else {
+                // Document doesn't exist yet — treat as not started
+                hackState.started = false;
+                hackState.startTime = null;
+            }
+
+            // Re-evaluate phase immediately on any Firestore change
+            currentPhase = null;
+            runTimer();
+        }, (error) => {
+            console.error('%c❌ Firestore listener error:', 'color: #f87171;', error.message);
+        });
+
+        // ==========================================
+        //  DOMContentLoaded — Canvas + Timer Tick
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
             // Fade in
             document.querySelectorAll('.fade-in').forEach(el => {
                 setTimeout(() => el.classList.add('visible'), 200);
             });
 
-
-            // Start timer
+            // Start the 1-second tick (Firestore listener handles phase changes,
+            // this interval just updates the countdown numbers each second)
             runTimer();
             timerInterval = setInterval(runTimer, 1000);
 
-            // Neural Canvas
+            // ── Neural Canvas ──
             const canvas = document.getElementById('neural-canvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
