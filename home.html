@@ -791,7 +791,6 @@
         // ── Firebase v9 Modular SDK (CDN) ──
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getFirestore, doc, onSnapshot, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
         // ┌──────────────────────────────────────────────────┐
         // │  🔧 FIREBASE CONFIG — PASTE YOUR VALUES BELOW   │
@@ -808,7 +807,6 @@
         // ── Initialize Firebase ──
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
 
         // ── Firestore document reference ──
         const stateDocRef = doc(db, 'hackathon_timer', 'state');
@@ -862,40 +860,13 @@
         }
 
         // ==========================================
-        //  Admin Authentication Helper
-        // ==========================================
-        async function adminAuth() {
-            // If already signed in, reuse
-            if (auth.currentUser) return true;
-
-            const email = prompt('🔐 Admin Email:');
-            if (!email) return false;
-            const password = prompt('🔑 Admin Password:');
-            if (!password) return false;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                console.log('%c✅ Admin authenticated.', 'color: #4ade80; font-size: 14px; font-weight: bold;');
-                return true;
-            } catch (err) {
-                console.error('%c❌ Authentication failed:', 'color: #f87171; font-size: 14px; font-weight: bold;', err.message);
-                alert('❌ Authentication failed: ' + err.message);
-                return false;
-            }
-        }
-
-        // ==========================================
         //  Firestore Write Functions (Admin Only)
         // ==========================================
 
         // ── START HACKATHON (button click) ──
         window.startHackathon = async function () {
-            if (hackState.started) return; // already started
+            if (hackState.started) return;
 
-            const authed = await adminAuth();
-            if (!authed) return;
-
-            // 🎉 Fire confetti!
             launchConfetti();
 
             try {
@@ -903,50 +874,44 @@
                     started: true,
                     startTime: Date.now()
                 });
-                console.log('%c🚀 Hackathon STARTED (synced to Firestore).', 'color: #60A5FA; font-size: 14px; font-weight: bold;');
+                console.log("🚀 Hackathon started.");
             } catch (err) {
-                console.error('%c❌ Failed to start hackathon:', 'color: #f87171;', err.message);
-                alert('❌ Failed to start: ' + err.message);
+                console.error("Error starting hackathon:", err);
             }
         };
 
         // ── RESET (console only) ──
         window.resetHackathon = async function () {
-            const authed = await adminAuth();
-            if (!authed) return;
-
             try {
                 await setDoc(stateDocRef, {
                     started: false,
                     startTime: null
                 });
+
                 currentPhase = null;
-                console.log('%c✅ Hackathon timer has been RESET (synced to Firestore).', 'color: #4ade80; font-size: 14px; font-weight: bold;');
+                console.log("✅ Hackathon reset.");
             } catch (err) {
-                console.error('%c❌ Failed to reset:', 'color: #f87171;', err.message);
+                console.error("Error resetting hackathon:", err);
             }
         };
 
         // ── END HACKATHON (console only) ──
         window.endHackathon = async function () {
             if (!hackState.started) {
-                console.log('%c⚠️ Hackathon has not been started yet.', 'color: #f59e0b; font-size: 14px; font-weight: bold;');
+                console.log("⚠️ Hackathon not started yet.");
                 return;
             }
 
-            const authed = await adminAuth();
-            if (!authed) return;
-
             try {
-                // Set startTime far in the past so it appears ended
                 await setDoc(stateDocRef, {
                     started: true,
                     startTime: Date.now() - HACKATHON_DURATION - 1000
                 });
+
                 currentPhase = null;
-                console.log('%c🏁 Hackathon has been ENDED (synced to Firestore).', 'color: #f87171; font-size: 14px; font-weight: bold;');
+                console.log("🏁 Hackathon ended.");
             } catch (err) {
-                console.error('%c❌ Failed to end hackathon:', 'color: #f87171;', err.message);
+                console.error("Error ending hackathon:", err);
             }
         };
 
