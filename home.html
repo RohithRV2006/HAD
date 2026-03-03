@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackWell'26 — Live Timer</title>
+    <link rel="icon" type="image/jpeg" href="assets/had-logo.jpeg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ── Custom Font ── */
+        @font-face {
+            font-family: 'Digital-7';
+            src: url('fonts/Digital-7.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        /* ── Variables ── */
+        :root {
+            --bg-primary: #0B0F1A;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1F2937;
+            --accent-primary: #2563EB;
+            --accent-secondary: #7C3AED;
+            --accent-glow: #60A5FA;
+            --text-primary: #E5E7EB;
+            --text-secondary: #9CA3AF;
+            --text-tertiary: #6B7280;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ── Reset ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scrollbar-width: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ── Background Effects ── */
+        @keyframes bgPulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.12) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #neural-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            padding: 4rem 2rem;
+            background: transparent;
+            backdrop-filter: none;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ── Title ── */
+        .hero h1 {
+            font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 1000;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            font-style: italic;
+            filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.5));
+        }
+
+        /* Glitch Effect */
+        .hero h1::before,
+        .hero h1::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.8;
+        }
+
+        .hero h1::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            animation: glitch-anim-1 8s infinite linear;
+        }
+
+        .hero h1::after {
+            left: -2px;
+            text-shadow: 1px 0 #00fff9;
+            animation: glitch-anim-2 7s infinite linear;
+        }
+
+        @keyframes glitch-anim-1 {
+
+            0%,
+            90%,
+            100% {
+                clip-path: inset(50% 0 30% 0);
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            92% {
+                clip-path: inset(20% 0 80% 0);
+                transform: translate(-2px, 1px);
+                opacity: 0.8;
+            }
+
+            94% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(2px, -1px);
+                opacity: 0.8;
+            }
+
+            96% {
+                clip-path: inset(50% 0 30% 0);
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+
+            0%,
+            90%,
+            100% {
+                clip-path: inset(40% 0 10% 0);
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            91% {
+                clip-path: inset(10% 0 60% 0);
+                transform: translate(2px, -1px);
+                opacity: 0.8;
+            }
+
+            93% {
+                clip-path: inset(30% 0 20% 0);
+                transform: translate(-2px, 1px);
+                opacity: 0.8;
+            }
+
+            95% {
+                clip-path: inset(40% 0 10% 0);
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+
+        .initext {
+            color: whitesmoke;
+            font-size: 22px;
+        }
+
+        /* ── Timer Label ── */
+        .timer-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            opacity: 0.8;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+        }
+
+
+
+        /* ── Flip Timer ── */
+        .flip-timer {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            margin-bottom: 3.5rem;
+        }
+
+        .flip-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flip-card {
+            position: relative;
+            width: 130px;
+            height: 140px;
+            background: rgba(10, 14, 23, 0.3);
+            border-radius: 8px;
+            font-family: 'Digital-7', 'Orbitron', monospace;
+            font-size: 6.5rem;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flip-card::before {
+            content: '88';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.05);
+            font-size: 6.5rem;
+            z-index: 0;
+            width: 100%;
+            text-align: center;
+            line-height: 140px;
+            pointer-events: none;
+        }
+
+        .segment {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: rgba(10, 14, 23, 0.8);
+            overflow: hidden;
+            text-align: center;
+            backface-visibility: hidden;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+
+        .top-bg {
+            top: 0;
+            line-height: 140px;
+            z-index: 1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .bot-bg {
+            bottom: 0;
+            line-height: 0;
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .leaf-top {
+            top: 0;
+            line-height: 140px;
+            z-index: 3;
+            transform-origin: top;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .leaf-bot {
+            bottom: 0;
+            line-height: 0;
+            z-index: 3;
+            transform-origin: bottom;
+            border-radius: 0 0 8px 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .folding .leaf-top {
+            transform: rotateX(-90deg);
+            opacity: 0;
+        }
+
+        .folding .leaf-bot {
+            transform: rotateX(90deg);
+            opacity: 0;
+        }
+
+        .label {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+
+        .colon {
+            font-family: 'Digital-7', 'Orbitron', monospace;
+            font-size: 3.5rem;
+            color: white;
+            padding-bottom: 35px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ── Buttons ── */
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .btn-tech {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            color: var(--accent-glow);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            clip-path: polygon(15px 0, 100% 0,
+                    100% calc(100% - 15px), calc(100% - 15px) 100%,
+                    0 100%, 0 15px);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 2;
+            padding: 1rem 3rem;
+            display: block;
+        }
+
+        .btn-border {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            clip-path: polygon(15px 0, 100% 0,
+                    100% calc(100% - 15px), calc(100% - 15px) 100%,
+                    0 100%, 0 15px);
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-tech:hover .btn-border {
+            border-color: var(--accent-glow);
+            background: rgba(0, 242, 255, 0.1);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .btn-tech:hover .btn-text {
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-tech .btn-text {
+            color: #ffffff;
+        }
+
+        /* Start button special glow — BLUE */
+        .btn-start .btn-border {
+            border-color: #2563EB;
+            box-shadow: inset 0 0 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-start .btn-text {
+            color: #60A5FA;
+        }
+
+        .btn-start:hover .btn-border {
+            border-color: #60A5FA;
+            background: rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-start:hover .btn-text {
+            color: #60A5FA;
+            text-shadow: 0 0 10px #60A5FA;
+        }
+
+        /* ── Logo Bar ── */
+        .logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .logo-bar img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            pointer-events: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .logo-bar {
+                padding: 0.6rem 1rem;
+            }
+
+            .logo-bar img {
+                height: 40px;
+            }
+        }
+
+        /* ── Confetti Canvas ── */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ── Fade-in Animation ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ── Mobile Responsive ── */
+        @media (max-width: 768px) {
+            .flip-timer {
+                perspective: 500px;
+                gap: 5px;
+                margin-bottom: 1.5rem;
+            }
+
+            .flip-card {
+                width: 18vw;
+                max-width: 70px;
+                height: 20vw;
+                max-height: 70px;
+                font-size: 2rem;
+                border-radius: 6px;
+            }
+
+            .flip-card::before {
+                font-size: 2rem;
+                line-height: 20vw;
+            }
+
+            .top-bg,
+            .leaf-top {
+                line-height: 20vw;
+            }
+
+            .segment {
+                transition: opacity 0.3s ease;
+                backface-visibility: visible;
+            }
+
+            .flip-card {
+                transform-style: flat;
+            }
+
+            .folding .leaf-top,
+            .folding .leaf-bot {
+                transform: none;
+                opacity: 0;
+            }
+
+            .colon {
+                font-size: 1.2rem;
+                padding-bottom: 10px;
+            }
+
+            .label {
+                font-size: 0.5rem;
+                letter-spacing: 1px;
+                margin-top: 8px;
+            }
+
+            .hero-content {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+
+            .initext {
+                font-size: 16px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .timer-label {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+            }
+
+            .hero-btns {
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .btn-text {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.7rem;
+            }
+
+
+        }
+
+        @media (min-width: 350px) and (max-width: 768px) {
+            .flip-card::before {
+                line-height: 70px;
+            }
+
+            .top-bg,
+            .leaf-top {
+                line-height: 70px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .flip-card {
+                font-size: 1.6rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 4rem);
+                margin-bottom: 1rem;
+            }
+
+            .flip-timer {
+                transform: scale(0.8);
+                margin: 0.5rem 0;
+            }
+
+            .hero-btns {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo Bar -->
+    <div class="logo-bar">
+        <img src="assets/had-logo.jpeg" alt="HAD Logo">
+        <img src="assets/scelogo.jpg" alt="SCE Logo">
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="neural-canvas"></canvas>
+        <div class="hero-content fade-in">
+            <br>
+            <h1 class="head" data-text="HackWell'26">HackWell'26</h1>
+            <p class="subtitle" style="margin-bottom: 2rem;">
+                "Build Fast, Think Big, Innovate Smart"
+            </p>
+            <p class="initext">
+                An initiative of the <br> Department of Artificial Intelligence & Data Science,<br>Saranathan College of
+                Engineering
+            </p>
+
+            <br>
+
+            <h3 class="timer-label" id="timerLabel">ESTABLISHING_INFERENCE_UPLINK</h3>
+
+            <div class="flip-timer" id="flipTimer">
+                <div class="flip-unit" id="days">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="hours">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="mins">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">MINUTES</div>
+                </div>
+                <div class="colon">:</div>
+                <div class="flip-unit" id="secs">
+                    <div class="flip-card">
+                        <div class="segment top-bg">00</div>
+                        <div class="segment bot-bg">00</div>
+                        <div class="segment leaf-top">00</div>
+                        <div class="segment leaf-bot">00</div>
+                    </div>
+                    <div class="label">SECONDS</div>
+                </div>
+            </div>
+
+            <div class="hero-btns fade-in">
+                <!-- Start Hackathon Button — always visible before hackathon starts -->
+                <button class="btn-tech btn-start" id="startBtn" onclick="startHackathon()">
+                    <span class="btn-text">▶ START HACKATHON</span>
+                    <span class="btn-border"></span>
+                </button>
+
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 HackWell | Saranathan College of Engineering</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        //  HackWell'26 — Home Timer Logic
+        // ==========================================
+
+        // Target: March 4th, 2026, 7:00 AM IST (UTC+5:30 → 01:30 UTC)
+        const PRE_HACKATHON_END = new Date('2026-03-04T01:30:00Z').getTime();
+        // 12-hour hackathon duration in ms
+        const HACKATHON_DURATION = 12 * 60 * 60 * 1000;
+
+        // Keys for localStorage (persists across refreshes & deployments)
+        const LS_KEY_STARTED = 'hackwell_hackathon_started';
+        const LS_KEY_START_TIME = 'hackwell_hackathon_start_time';
+
+        let currentPhase = null; // 'pre' | 'live' | 'done'
+        let timerInterval = null;
+
+        // ── DOM Elements ──
+        const timerLabel = document.getElementById('timerLabel');
+        const flipTimer = document.getElementById('flipTimer');
+        const daysUnit = document.getElementById('days');
+        const daysColon = daysUnit ? daysUnit.nextElementSibling : null;
+        const startBtn = document.getElementById('startBtn');
+
+        // ── Flip Card Update ──
+        function updateCard(unitId, newValue) {
+            const unit = document.getElementById(unitId);
+            if (!unit) return;
+            if (unit.classList.contains('folding')) return;
+
+            const formatted = String(newValue).padStart(2, '0');
+            const backgrounds = unit.querySelectorAll('.top-bg, .bot-bg');
+            const leaves = unit.querySelectorAll('.leaf-top, .leaf-bot');
+
+            if (leaves[0] && leaves[0].innerText !== formatted) {
+                if (window.innerWidth <= 768) {
+                    leaves.forEach(leaf => { leaf.style.opacity = '0'; });
+                    setTimeout(() => {
+                        backgrounds.forEach(bg => bg.innerText = formatted);
+                        leaves.forEach(leaf => { leaf.innerText = formatted; leaf.style.opacity = '1'; });
+                    }, 150);
+                } else {
+                    backgrounds.forEach(bg => bg.innerText = formatted);
+                    unit.classList.add('folding');
+                    setTimeout(() => {
+                        unit.classList.remove('folding');
+                        leaves.forEach(leaf => leaf.innerText = formatted);
+                    }, 600);
+                }
+            } else if (leaves[0] && leaves[0].innerText === '') {
+                backgrounds.forEach(bg => bg.innerText = formatted);
+                leaves.forEach(leaf => leaf.innerText = formatted);
+            }
+        }
+
+        // ── Check if hackathon was manually started ──
+        function isHackathonStarted() {
+            return localStorage.getItem(LS_KEY_STARTED) === 'true';
+        }
+
+        function getHackathonStartTime() {
+            const t = localStorage.getItem(LS_KEY_START_TIME);
+            return t ? parseInt(t, 10) : null;
+        }
+
+        function getHackathonEndTime() {
+            const start = getHackathonStartTime();
+            return start ? start + HACKATHON_DURATION : null;
+        }
+
+        // ── START button handler — can be clicked ANYTIME ──
+        function startHackathon() {
+            if (isHackathonStarted()) return; // already started
+
+            // 🎉 Fire confetti!
+            launchConfetti();
+
+            const now = Date.now();
+            localStorage.setItem(LS_KEY_STARTED, 'true');
+            localStorage.setItem(LS_KEY_START_TIME, String(now));
+
+            // Force an immediate re-evaluation
+            currentPhase = null;
+            runTimer();
+        }
+
+        // ── RESET (console only) ──
+        window.resetHackathon = function () {
+            localStorage.removeItem(LS_KEY_STARTED);
+            localStorage.removeItem(LS_KEY_START_TIME);
+            currentPhase = null;
+            console.log('%c✅ Hackathon timer has been RESET.', 'color: #4ade80; font-size: 14px; font-weight: bold;');
+            console.log('%cRefreshing page...', 'color: #60A5FA; font-size: 12px;');
+            location.reload();
+        };
+
+        // ── END HACKATHON (console only) ──
+        window.endHackathon = function () {
+            if (!isHackathonStarted()) {
+                console.log('%c⚠️ Hackathon has not been started yet.', 'color: #f59e0b; font-size: 14px; font-weight: bold;');
+                return;
+            }
+            // Set start time far enough in the past so it appears ended
+            localStorage.setItem(LS_KEY_START_TIME, String(Date.now() - HACKATHON_DURATION - 1000));
+            currentPhase = null;
+            console.log('%c🏁 Hackathon has been ENDED.', 'color: #f87171; font-size: 14px; font-weight: bold;');
+            console.log('%cRefreshing page...', 'color: #60A5FA; font-size: 12px;');
+            location.reload();
+        };
+
+
+
+        // ── Main Timer Loop ──
+        function runTimer() {
+            const now = Date.now();
+
+            const hackathonStarted = isHackathonStarted();
+            const hackathonEnd = getHackathonEndTime();
+
+            // Phase 1: Hackathon NOT started yet — show pre-hackathon countdown + Start button
+            if (!hackathonStarted) {
+                if (currentPhase !== 'pre') {
+                    currentPhase = 'pre';
+                    timerLabel.textContent = 'ESTABLISHING_INFERENCE_UPLINK';
+                    // Show days + its colon
+                    if (daysUnit) daysUnit.style.display = '';
+                    if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = '';
+                    // Show start button
+                    startBtn.classList.remove('hidden');
+                }
+
+                // If before March 4 7am, count down to it
+                if (now < PRE_HACKATHON_END) {
+                    const diff = PRE_HACKATHON_END - now;
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    updateCard('days', d);
+                    updateCard('hours', h);
+                    updateCard('mins', m);
+                    updateCard('secs', s);
+                } else {
+                    // Past the target — show 00:00:00:00 but keep start button
+                    updateCard('days', 0);
+                    updateCard('hours', 0);
+                    updateCard('mins', 0);
+                    updateCard('secs', 0);
+                }
+            }
+            // Phase 2: Hackathon is LIVE — 12 hr countdown (Hrs, Mins, Secs only)
+            else if (hackathonStarted && hackathonEnd && now < hackathonEnd) {
+                if (currentPhase !== 'live') {
+                    currentPhase = 'live';
+                    timerLabel.textContent = 'HACKATHON_IN_PROGRESS';
+                    // Hide days + colon
+                    if (daysUnit) daysUnit.style.display = 'none';
+                    if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = 'none';
+                    // Hide start button
+                    startBtn.classList.add('hidden');
+                }
+
+                const diff = hackathonEnd - now;
+                const h = Math.floor(diff / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                updateCard('hours', h);
+                updateCard('mins', m);
+                updateCard('secs', s);
+            }
+            // Phase 3: Hackathon DONE
+            else if (hackathonStarted && hackathonEnd && now >= hackathonEnd) {
+                if (currentPhase !== 'done') {
+                    currentPhase = 'done';
+                    timerLabel.textContent = 'HACKATHON_COMPLETE';
+                    // Hide days + colon
+                    if (daysUnit) daysUnit.style.display = 'none';
+                    if (daysColon && daysColon.classList.contains('colon')) daysColon.style.display = 'none';
+                    startBtn.classList.add('hidden');
+
+                    updateCard('hours', 0);
+                    updateCard('mins', 0);
+                    updateCard('secs', 0);
+
+                    if (timerInterval) clearInterval(timerInterval);
+                }
+                return;
+            }
+        }
+
+        // ── Neural Network Canvas ──
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fade in
+            document.querySelectorAll('.fade-in').forEach(el => {
+                setTimeout(() => el.classList.add('visible'), 200);
+            });
+
+
+            // Start timer
+            runTimer();
+            timerInterval = setInterval(runTimer, 1000);
+
+            // Neural Canvas
+            const canvas = document.getElementById('neural-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let particles = [];
+
+                const particleCount = window.innerWidth < 738 ? 30 : 60;
+                const connectionDistance = 200;
+                const particleSpeed = 0.4;
+
+                function resize() {
+                    width = canvas.width = window.outerWidth;
+                    height = canvas.height = window.outerHeight;
+                }
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * particleSpeed;
+                        this.vy = (Math.random() - 0.5) * particleSpeed;
+                        this.size = Math.random() * 2 + 1;
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(37, 99, 235, 0.7)';
+                        ctx.shadowColor = 'rgba(37, 99, 235, 0.8)';
+                        ctx.shadowBlur = 12;
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                }
+
+                function init() {
+                    resize();
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                    animate();
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach((p, index) => {
+                        p.update();
+                        p.draw();
+                        for (let j = index + 1; j < particles.length; j++) {
+                            const p2 = particles[j];
+                            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                            if (dist < connectionDistance) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(124, 58, 237, ${1 - dist / connectionDistance})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                    requestAnimationFrame(animate);
+                }
+
+                window.addEventListener('resize', () => {
+                    resize();
+                    particles = [];
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                });
+
+                init();
+            }
+        });
+
+        // ==========================================
+        //  Confetti / Party Pop Animation
+        // ==========================================
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = [
+                '#2563EB', '#60A5FA', '#7C3AED', '#A78BFA',
+                '#F59E0B', '#EF4444', '#10B981', '#EC4899',
+                '#FFD700', '#00E5FF', '#FF6F61', '#FFFFFF'
+            ];
+
+            const pieces = [];
+            const PIECE_COUNT = 200;
+            const GRAVITY = 0.15;
+            const DRAG = 0.98;
+            const DURATION = 4000; // ms
+
+            for (let i = 0; i < PIECE_COUNT; i++) {
+                pieces.push({
+                    x: canvas.width / 2 + (Math.random() - 0.5) * 100,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 20,
+                    vy: (Math.random() - 1) * 18 - 4,
+                    w: Math.random() * 10 + 5,
+                    h: Math.random() * 6 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 15,
+                    opacity: 1
+                });
+            }
+
+            const startTime = Date.now();
+
+            function animateConfetti() {
+                const elapsed = Date.now() - startTime;
+                if (elapsed > DURATION) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    return;
+                }
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const fadeRatio = elapsed > DURATION * 0.6
+                    ? 1 - (elapsed - DURATION * 0.6) / (DURATION * 0.4)
+                    : 1;
+
+                pieces.forEach(p => {
+                    p.vy += GRAVITY;
+                    p.vx *= DRAG;
+                    p.vy *= DRAG;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rotation += p.rotSpeed;
+                    p.opacity = fadeRatio;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                });
+
+                requestAnimationFrame(animateConfetti);
+            }
+
+            animateConfetti();
+
+            // Handle resize during animation
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }, { once: true });
+        }
+    </script>
+
+</body>
+
+</html>
