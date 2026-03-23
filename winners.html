@@ -10,7 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
-        /* ==================== BASE THEME (matches problem-statements.css) ==================== */
+        /* ==================== BASE THEME ==================== */
         :root {
             --bg-primary: #0B0F1A;
             --bg-secondary: #111827;
@@ -27,7 +27,6 @@
             --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             --neon-shadow: 0 0 20px rgba(37, 99, 235, 0.15), 0 0 40px rgba(124, 58, 237, 0.1);
 
-            /* Winner colors */
             --gold: #FFD700;
             --gold-glow: rgba(255, 215, 0, 0.4);
             --silver: #C0C0C0;
@@ -59,21 +58,36 @@
             display: none;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Background Effects */
         @keyframes bgPulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.05); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.05);
+            }
         }
 
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image:
                 radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.12) 0%, transparent 40%);
@@ -85,8 +99,10 @@
         body::after {
             content: '';
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image:
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
@@ -98,7 +114,8 @@
         /* ==================== NAVIGATION ==================== */
         nav {
             position: fixed;
-            top: 0; width: 100%;
+            top: 0;
+            width: 100%;
             z-index: 1000;
             background: rgba(11, 15, 26, 0.95);
             backdrop-filter: blur(15px);
@@ -125,7 +142,8 @@
         }
 
         .nav-logo-img {
-            height: 50px; width: 50px;
+            height: 50px;
+            width: 50px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--accent-primary);
@@ -142,8 +160,15 @@
             gap: 0.5rem;
         }
 
-        .brand-sep { color: var(--accent-primary); }
-        .brand-sub { font-weight: 400; color: var(--accent-glow); font-size: 1.3rem; }
+        .brand-sep {
+            color: var(--accent-primary);
+        }
+
+        .brand-sub {
+            font-weight: 400;
+            color: var(--accent-glow);
+            font-size: 1.3rem;
+        }
 
         .nav-links-horizontal {
             display: flex;
@@ -161,18 +186,24 @@
             position: relative;
         }
 
-        .nav-links-horizontal a:hover { color: var(--accent-primary); }
+        .nav-links-horizontal a:hover {
+            color: var(--accent-primary);
+        }
 
         .nav-links-horizontal a::after {
             content: '';
             position: absolute;
-            bottom: -4px; left: 0;
-            width: 0; height: 2px;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
             background: var(--accent-primary);
             transition: width 0.3s ease;
         }
 
-        .nav-links-horizontal a:hover::after { width: 100%; }
+        .nav-links-horizontal a:hover::after {
+            width: 100%;
+        }
 
         .menu-toggle {
             display: none;
@@ -184,16 +215,18 @@
         }
 
         .menu-toggle span {
-            width: 30px; height: 3px;
+            width: 30px;
+            height: 3px;
             background: var(--text-primary);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Navigation Pane */
         .nav-pane {
             position: fixed;
-            top: 0; right: -100%;
-            width: 350px; height: 100vh;
+            top: 0;
+            right: -100%;
+            width: 350px;
+            height: 100vh;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-left: 1px solid var(--glass-border);
@@ -203,12 +236,16 @@
             overflow-y: auto;
         }
 
-        .nav-pane.active { right: 0; }
+        .nav-pane.active {
+            right: 0;
+        }
 
         .nav-pane-close {
             position: absolute;
-            top: 2rem; right: 2rem;
-            background: none; border: none;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
             color: var(--text-primary);
             font-size: 2.5rem;
             cursor: pointer;
@@ -247,16 +284,22 @@
 
         .nav-backdrop {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
             z-index: 999;
-            opacity: 0; visibility: hidden;
+            opacity: 0;
+            visibility: hidden;
             transition: all 0.3s ease;
         }
 
-        .nav-backdrop.active { opacity: 1; visibility: visible; }
+        .nav-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
         /* ==================== WINNERS SECTION ==================== */
         .winners-section {
@@ -282,8 +325,15 @@
         }
 
         @keyframes titleShimmer {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 200% center; }
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 200% center;
+            }
         }
 
         .winners-header p {
@@ -293,11 +343,12 @@
             margin: 0 auto;
         }
 
-        /* Confetti Canvas */
         #confetti-canvas {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 9999;
         }
@@ -308,7 +359,7 @@
             align-items: flex-end;
             justify-content: center;
             gap: 2rem;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto 4rem;
             padding: 0 1rem;
         }
@@ -316,7 +367,7 @@
         /* Winner Card */
         .winner-card {
             flex: 1;
-            max-width: 340px;
+            max-width: 360px;
             background: var(--bg-secondary);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
@@ -337,8 +388,10 @@
         .winner-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
@@ -355,10 +408,11 @@
         /* Rank Badge */
         .rank-badge {
             position: absolute;
-            top: 1rem; right: 1rem;
+            top: 1rem;
+            right: 1rem;
             font-size: 2.2rem;
             z-index: 2;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
         }
 
         /* Place Label */
@@ -368,7 +422,7 @@
             font-size: 1rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             padding: 0.4rem 1.2rem;
             border-radius: 30px;
             display: inline-block;
@@ -377,9 +431,9 @@
         /* Winner Image */
         .winner-img-wrapper {
             position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 1.5rem;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.2rem;
             border-radius: 50%;
             overflow: hidden;
         }
@@ -387,7 +441,8 @@
         .winner-img-wrapper::after {
             content: '';
             position: absolute;
-            top: -4px; left: -4px;
+            top: -4px;
+            left: -4px;
             width: calc(100% + 8px);
             height: calc(100% + 8px);
             border-radius: 50%;
@@ -410,18 +465,70 @@
         }
 
         /* Winner Info */
-        .winner-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .winner-team-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
             color: var(--text-primary);
         }
 
-        .winner-praise {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+        .winner-role {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .winner-project {
+            font-size: 0.88rem;
+            color: var(--accent-glow);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            line-height: 1.5;
+        }
+
+        .winner-domain {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
             font-style: italic;
+        }
+
+        /* Members list */
+        .winner-members {
+            list-style: none;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 0.9rem;
+            margin-top: 0.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .winner-members li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .winner-members li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .winner-praise {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 1rem;
         }
 
         /* === GOLD (1st Place) === */
@@ -442,6 +549,14 @@
         .winner-card.gold .place-label {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             color: #1a1a2e;
+        }
+
+        .winner-card.gold .winner-role {
+            color: var(--gold);
+        }
+
+        .winner-card.gold .winner-members li::before {
+            background: var(--gold);
         }
 
         .winner-card.gold .winner-img-wrapper {
@@ -474,6 +589,14 @@
             color: #1a1a2e;
         }
 
+        .winner-card.silver .winner-role {
+            color: var(--silver);
+        }
+
+        .winner-card.silver .winner-members li::before {
+            background: var(--silver);
+        }
+
         .winner-card.silver .winner-img-wrapper {
             box-shadow: 0 0 25px var(--silver-glow), 0 0 50px rgba(192, 192, 192, 0.12);
             animation: glowPulseSilver 3s ease-in-out infinite 0.5s;
@@ -504,6 +627,14 @@
             color: #1a1a2e;
         }
 
+        .winner-card.bronze .winner-role {
+            color: var(--bronze);
+        }
+
+        .winner-card.bronze .winner-members li::before {
+            background: var(--bronze);
+        }
+
         .winner-card.bronze .winner-img-wrapper {
             box-shadow: 0 0 25px var(--bronze-glow), 0 0 50px rgba(205, 127, 50, 0.12);
             animation: glowPulseBronze 3s ease-in-out infinite 1s;
@@ -515,14 +646,28 @@
         }
 
         /* Podium Heights */
-        .winner-card.gold { min-height: 460px; }
-        .winner-card.silver { min-height: 420px; }
-        .winner-card.bronze { min-height: 420px; }
+        .winner-card.gold {
+            min-height: 500px;
+        }
 
-        /* Floating Animation */
+        .winner-card.silver {
+            min-height: 460px;
+        }
+
+        .winner-card.bronze {
+            min-height: 460px;
+        }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .winner-card.gold.visible {
@@ -540,6 +685,7 @@
                 opacity: 0;
                 transform: translateY(60px) scale(0.9);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -547,28 +693,61 @@
         }
 
         @keyframes glowPulseGold {
-            0%, 100% { box-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(255, 215, 0, 0.15); }
-            50% { box-shadow: 0 0 45px var(--gold-glow), 0 0 90px rgba(255, 215, 0, 0.25); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(255, 215, 0, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 0 45px var(--gold-glow), 0 0 90px rgba(255, 215, 0, 0.25);
+            }
         }
 
         @keyframes glowPulseSilver {
-            0%, 100% { box-shadow: 0 0 25px var(--silver-glow), 0 0 50px rgba(192, 192, 192, 0.12); }
-            50% { box-shadow: 0 0 40px var(--silver-glow), 0 0 70px rgba(192, 192, 192, 0.2); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 25px var(--silver-glow), 0 0 50px rgba(192, 192, 192, 0.12);
+            }
+
+            50% {
+                box-shadow: 0 0 40px var(--silver-glow), 0 0 70px rgba(192, 192, 192, 0.2);
+            }
         }
 
         @keyframes glowPulseBronze {
-            0%, 100% { box-shadow: 0 0 25px var(--bronze-glow), 0 0 50px rgba(205, 127, 50, 0.12); }
-            50% { box-shadow: 0 0 40px var(--bronze-glow), 0 0 70px rgba(205, 127, 50, 0.2); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 25px var(--bronze-glow), 0 0 50px rgba(205, 127, 50, 0.12);
+            }
+
+            50% {
+                box-shadow: 0 0 40px var(--bronze-glow), 0 0 70px rgba(205, 127, 50, 0.2);
+            }
         }
 
         @keyframes borderRotate {
-            from { transform: rotate(0deg) scale(1.02); }
-            to { transform: rotate(360deg) scale(1.02); }
+            from {
+                transform: rotate(0deg) scale(1.02);
+            }
+
+            to {
+                transform: rotate(360deg) scale(1.02);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .fade-in {
@@ -611,20 +790,44 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 1024px) {
-            .nav-container { padding: 0 2rem; }
-            .podium { gap: 1.5rem; }
+            .nav-container {
+                padding: 0 2rem;
+            }
+
+            .podium {
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .nav-links-horizontal { display: none; }
-            .menu-toggle { display: flex; }
+            .nav-links-horizontal {
+                display: none;
+            }
 
-            .brand-text { font-size: 1.2rem; }
-            .brand-sub { font-size: 1.1rem; }
-            .nav-logo-img { height: 40px; width: 40px; }
-            .nav-pane { width: 280px; }
+            .menu-toggle {
+                display: flex;
+            }
 
-            .winners-header h1 { font-size: 2.2rem; }
+            .brand-text {
+                font-size: 1.2rem;
+            }
+
+            .brand-sub {
+                font-size: 1.1rem;
+            }
+
+            .nav-logo-img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .nav-pane {
+                width: 280px;
+            }
+
+            .winners-header h1 {
+                font-size: 2.2rem;
+            }
 
             .podium {
                 flex-direction: column;
@@ -636,11 +839,17 @@
                 width: 100%;
             }
 
-            /* Reorder for mobile: 1st, 2nd, 3rd from top */
-            .podium { flex-direction: column; }
-            .podium .winner-card.gold { order: -1; }
-            .podium .winner-card.silver { order: 0; }
-            .podium .winner-card.bronze { order: 1; }
+            .podium .winner-card.gold {
+                order: -1;
+            }
+
+            .podium .winner-card.silver {
+                order: 0;
+            }
+
+            .podium .winner-card.bronze {
+                order: 1;
+            }
 
             .winner-card.gold,
             .winner-card.silver,
@@ -649,22 +858,30 @@
             }
 
             .winner-img-wrapper {
-                width: 150px;
-                height: 150px;
+                width: 140px;
+                height: 140px;
             }
         }
 
         @media (max-width: 480px) {
-            .winners-header h1 { font-size: 1.8rem; }
-            .winner-img-wrapper { width: 130px; height: 130px; }
-            .winner-card { padding: 1.5rem 1rem 2rem; }
+            .winners-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .winner-img-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+
+            .winner-card {
+                padding: 1.5rem 1rem 2rem;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
 
     <!-- Navigation -->
@@ -687,14 +904,11 @@
             </ul>
 
             <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Right-Side Navigation Pane (mobile) -->
     <div class="nav-pane">
         <button class="nav-pane-close">&times;</button>
         <ul class="nav-pane-links">
@@ -708,50 +922,76 @@
         </ul>
     </div>
 
-    <!-- Backdrop for pane -->
     <div class="nav-backdrop"></div>
 
     <!-- Winners Content -->
     <section class="winners-section">
         <header class="winners-header fade-in">
-            <h1> HackWell'26 Winners </h1>
+            <h1>🏆 HackWell'26 Winners</h1>
             <p>Celebrating the brilliant minds who innovated, built, and conquered the hackathon</p>
         </header>
 
         <!-- Podium: 2nd | 1st | 3rd -->
         <div class="podium">
 
-            <!-- 2nd Place -->
+            <!-- 2nd Place – GRIFFINS -->
             <div class="winner-card silver" id="card-silver">
                 <span class="rank-badge">🥈</span>
                 <div class="place-label">2nd Place</div>
                 <div class="winner-img-wrapper">
-                    <img src="assets/2nd.jpg" alt="2nd Place Winner">
+                    <img src="assets/2nd.jpg" alt="GRIFFINS – 2nd Place">
                 </div>
-                <h3 class="winner-title">Runner Up</h3>
-                <p class="winner-praise">"An extraordinary display of technical prowess and creative problem-solving. Your solution left the judges in awe — a truly remarkable achievement!"</p>
+                <p class="winner-role">Runner Up</p>
+                <h3 class="winner-team-name">GRIFFINS</h3>
+                <p class="winner-project">AI System for Detecting Psychological Manipulation in Digital Media</p>
+                <p class="winner-domain">Applied Gen AI</p>
+                <p class="winner-praise">"Sharp thinking, bold execution — a solution that truly impressed the judges."
+                </p>
+                <ul class="winner-members">
+                    <li>Sheryl Hephzibah S &mdash; 3rd Year B</li>
+                    <li>Mirun Kaushik S &mdash; 3rd Year B</li>
+                    <li>Natania Amolaa Joseph &mdash; 3rd Year B</li>
+                </ul>
             </div>
 
-            <!-- 1st Place -->
+            <!-- 1st Place – Tech Dudes -->
             <div class="winner-card gold" id="card-gold">
                 <span class="rank-badge">🥇</span>
                 <div class="place-label">1st Place</div>
                 <div class="winner-img-wrapper">
-                    <img src="assets/1st.jpg" alt="1st Place Winner">
+                    <img src="assets/1st.jpg" alt="Tech Dudes – 1st Place">
                 </div>
-                <h3 class="winner-title">Champion</h3>
-                <p class="winner-praise">"The undisputed champion of HackWell'26! A masterful blend of innovation, execution, and vision that set the bar sky-high. Absolutely phenomenal work!"</p>
+                <p class="winner-role">Champion</p>
+                <h3 class="winner-team-name">Tech Dudes</h3>
+                <p class="winner-project">HAD-24: Campus-to-Corporate Digital Twin</p>
+                <p class="winner-domain">Campus to Corporate</p>
+                <p class="winner-praise">"Visionary idea, flawless delivery — the undisputed best of HackWell'26."</p>
+                <ul class="winner-members">
+                    <li>Jeeva S &mdash; 2nd Year A</li>
+                    <li>Rahan S &mdash; 2nd Year B</li>
+                    <li>Girubakharan V &mdash; 2nd Year A</li>
+                    <li>Muhesh G R &mdash; 2nd Year B</li>
+                </ul>
             </div>
 
-            <!-- 3rd Place -->
+            <!-- 3rd Place – Digitronauts -->
             <div class="winner-card bronze" id="card-bronze">
                 <span class="rank-badge">🥉</span>
                 <div class="place-label">3rd Place</div>
                 <div class="winner-img-wrapper">
-                    <img src="assets/3rd.jpg" alt="3rd Place Winner">
+                    <img src="assets/3rd.jpg" alt="Digitronauts – 3rd Place">
                 </div>
-                <h3 class="winner-title">Second Runner Up</h3>
-                <p class="winner-praise">"A stellar performance that stood out among fierce competition. Your innovative approach and dedication earned you a well-deserved spot on the podium!"</p>
+                <p class="winner-role">Second Runner Up</p>
+                <h3 class="winner-team-name">Digitronauts</h3>
+                <p class="winner-project">HAD-17: Trust Erosion Detection in Digital Platforms</p>
+                <p class="winner-domain">AI for Everyone</p>
+                <p class="winner-praise">"A standout effort that earned every bit of their podium place."</p>
+                <ul class="winner-members">
+                    <li>Priyadharshini A &mdash; 3rd Year B</li>
+                    <li>Neshanthanee VM &mdash; 3rd Year B</li>
+                    <li>Shanmugapriya G &mdash; 3rd Year B</li>
+                    <li>Roshini R &mdash; 3rd Year B</li>
+                </ul>
             </div>
 
         </div>
@@ -760,20 +1000,21 @@
         <div class="congrats-banner">
             <p>
                 Heartfelt congratulations to all our winners and participants!<br>
-                Every team at <span class="highlight">HackWell'26</span> demonstrated exceptional talent, creativity, and perseverance.
-                The future of <span class="highlight">AI & Data Science</span> is brighter because of you all. Keep innovating, keep building!
+                Every team at <span class="highlight">HackWell'26</span> demonstrated exceptional talent, creativity,
+                and perseverance.
+                The future of <span class="highlight">AI & Data Science</span> is brighter because of you all. Keep
+                innovating, keep building!
             </p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 HackWell | Saranathan College of Engineering</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Nav ---
+            // Mobile Nav
             const menuToggle = document.querySelector('.menu-toggle');
             const navPane = document.querySelector('.nav-pane');
             const navBackdrop = document.querySelector('.nav-backdrop');
@@ -807,19 +1048,17 @@
                 });
             }
 
-            // --- Animate Cards on Scroll ---
+            // Animate Cards on Scroll
             const cards = document.querySelectorAll('.winner-card');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, { threshold: 0.15 });
 
             cards.forEach(card => observer.observe(card));
 
-            // --- Confetti Effect ---
+            // Confetti
             const confettiCanvas = document.getElementById('confetti-canvas');
             if (confettiCanvas) {
                 const ctx = confettiCanvas.getContext('2d');
@@ -834,10 +1073,7 @@
                 }
 
                 class ConfettiPiece {
-                    constructor() {
-                        this.reset();
-                    }
-
+                    constructor() { this.reset(); }
                     reset() {
                         this.x = Math.random() * cWidth;
                         this.y = Math.random() * cHeight - cHeight;
@@ -850,25 +1086,19 @@
                         this.opacity = Math.random() * 0.6 + 0.4;
                         this.shape = Math.random() > 0.5 ? 'rect' : 'circle';
                     }
-
                     update() {
                         this.y += this.speedY;
                         this.x += this.speedX;
                         this.rotation += this.rotationSpeed;
                         this.opacity -= 0.001;
-
-                        if (this.y > cHeight + 20 || this.opacity <= 0) {
-                            this.reset();
-                        }
+                        if (this.y > cHeight + 20 || this.opacity <= 0) this.reset();
                     }
-
                     draw() {
                         ctx.save();
                         ctx.translate(this.x, this.y);
                         ctx.rotate((this.rotation * Math.PI) / 180);
                         ctx.globalAlpha = this.opacity;
                         ctx.fillStyle = this.color;
-
                         if (this.shape === 'rect') {
                             ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
                         } else {
@@ -876,25 +1106,19 @@
                             ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
                             ctx.fill();
                         }
-
                         ctx.restore();
                     }
                 }
 
                 function initConfetti() {
                     resizeConfetti();
-                    for (let i = 0; i < confettiCount; i++) {
-                        confettiPieces.push(new ConfettiPiece());
-                    }
+                    for (let i = 0; i < confettiCount; i++) confettiPieces.push(new ConfettiPiece());
                     animateConfetti();
                 }
 
                 function animateConfetti() {
                     ctx.clearRect(0, 0, cWidth, cHeight);
-                    confettiPieces.forEach(piece => {
-                        piece.update();
-                        piece.draw();
-                    });
+                    confettiPieces.forEach(p => { p.update(); p.draw(); });
                     requestAnimationFrame(animateConfetti);
                 }
 
