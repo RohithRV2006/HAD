@@ -673,6 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
+        let animRunning = false;
 
         // Configuration
         const particleCount = window.innerWidth < 738 ? 30 : 60; // Fewer on mobile
@@ -680,8 +681,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const particleSpeed = 0.4;
 
         function resize() {
-            width = canvas.width = window.outerWidth;
-            height = canvas.height = window.outerHeight;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
 
         class Particle {
@@ -715,10 +716,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function init() {
             resize();
+            particles = [];
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
-            animate();
+            if (!animRunning) {
+                animRunning = true;
+                animate();
+            }
         }
 
         function animate() {
@@ -748,16 +753,15 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => {
-            resize();
-            particles = []; // Reset on resize to prevent clustering
-            // Re-populate particles without restarting animation loop
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        });
+        window.addEventListener('resize', init);
 
+        // Initialize immediately
         init();
+
+        // Also re-init after full page load to handle any timing issues
+        window.addEventListener('load', () => {
+            setTimeout(init, 100);
+        });
     }
 });
 

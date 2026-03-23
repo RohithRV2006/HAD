@@ -2788,3 +2788,74 @@ footer {
         gap: 2rem;
     }
 }
+
+/* ==================== HERO MARQUEE ==================== */
+.hero-marquee {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background: rgba(11, 15, 26, 0.85);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0.75rem 0;
+    z-index: 20;
+}
+
+.marquee-track {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: marqueeScroll 28s linear infinite;
+    will-change: transform;
+}
+
+.marquee-content span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent-glow);
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+    flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+    .marquee-content span {
+        font-size: 0.9rem;
+    }
+}
+
+.marquee-inner {
+    display: flex;
+    width: max-content;       /* ← THIS is the fix */
+    animation: marqueeScroll 18s linear infinite;
+}
+
+.marquee-inner span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent-glow);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding-right: 4rem;      /* gap between repeats */
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+}
+
+@keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
