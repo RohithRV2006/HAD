@@ -364,14 +364,14 @@
 
         /* ==================== MASONRY GALLERY GRID ==================== */
         .gallery-grid {
-            columns: 2;
+            columns: 4;
             column-gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
-        @media (min-width: 1200px) {
+        @media (max-width: 1200px) {
             .gallery-grid {
-                columns: 2;
+                columns: 3;
             }
         }
 
@@ -455,6 +455,23 @@
         .gallery-item:hover::after {
             opacity: 1;
             transform: translate(-3px, -3px);
+        }
+
+        .gallery-img-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .gallery-caption {
+            padding: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: center;
+            background: rgba(11, 15, 26, 0.4);
+            font-weight: 300;
+            line-height: 1.5;
         }
 
         .gallery-item img {
@@ -947,57 +964,69 @@
                 <span class="dot violet"></span>
                 Saranathan College of Engineering
             </div>
-            <div class="stat-chip">
-                <span class="dot glow"></span>
-                AI &amp; Data Science
-            </div>
         </div>
 
         <!-- Masonry Grid -->
         <div class="gallery-grid" id="galleryGrid">
 
             <div class="gallery-item" data-index="0">
-                <img src="assets/gallery1.jpeg" alt="HackWell'26 Gallery Photo 1" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="overlay-content">
-                        <div class="overlay-icon">⤢</div>
-                        <span class="overlay-label">View Full</span>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/gallery1.jpeg" alt="HackWell'26 Gallery Photo 1" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
                     </div>
                 </div>
                 <div class="corner-br"></div>
+                <div class="gallery-caption">Principal Dr. D. Valavan and Dr. S. Ravimaran, HoD of AI&DS, inaugurate the
+                    hackathon with a ribbon-cutting ceremony.</div>
             </div>
 
             <div class="gallery-item" data-index="1">
-                <img src="assets/gallery2.jpeg" alt="HackWell'26 Gallery Photo 2" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="overlay-content">
-                        <div class="overlay-icon">⤢</div>
-                        <span class="overlay-label">View Full</span>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/gallery2.jpeg" alt="HackWell'26 Gallery Photo 2" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
                     </div>
                 </div>
                 <div class="corner-br"></div>
+                <div class="gallery-caption">HackWell'26 participants actively engaging in the event and collaborating
+                    on their ideas.</div>
             </div>
 
             <div class="gallery-item" data-index="2">
-                <img src="assets/gallery3.jpeg" alt="HackWell'26 Gallery Photo 3" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="overlay-content">
-                        <div class="overlay-icon">⤢</div>
-                        <span class="overlay-label">View Full</span>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/gallery3.jpeg" alt="HackWell'26 Gallery Photo 3" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
                     </div>
                 </div>
                 <div class="corner-br"></div>
+                <div class="gallery-caption">Principal Dr. D. Valavan delivers the inspiring inaugural address to the
+                    participants.</div>
             </div>
 
             <div class="gallery-item" data-index="3">
-                <img src="assets/gallery4.jpeg" alt="HackWell'26 Gallery Photo 4" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="overlay-content">
-                        <div class="overlay-icon">⤢</div>
-                        <span class="overlay-label">View Full</span>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/gallery4.jpeg" alt="HackWell'26 Gallery Photo 4" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
                     </div>
                 </div>
                 <div class="corner-br"></div>
+                <div class="gallery-caption">Mr. Sadheesh, Faculty Coordinator of HackWell, shares words of
+                    encouragement with the students.</div>
             </div>
 
         </div>
