@@ -63,6 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hasVisited) {
             // If visited, hide immediately
             loader.style.display = 'none';
+            // Also show the winner popup on revisit immediately after
+            const winPopup = document.getElementById('win-popup-overlay');
+            if (winPopup && !sessionStorage.getItem('win_popup_closed')) {
+                setTimeout(() => {
+                    winPopup.classList.add('active');
+                }, 500); // Small delay to let page render
+            }
         } else {
             // If first visit, set flag and allow animation to play
             sessionStorage.setItem('hackwell_visited', 'true');
@@ -75,8 +82,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Remove from DOM after fade out transition
                 setTimeout(() => {
                     loader.style.display = 'none';
+                    // Show winner popup after loader finishes
+                    const winPopup = document.getElementById('win-popup-overlay');
+                    if (winPopup && !sessionStorage.getItem('win_popup_closed')) {
+                        winPopup.classList.add('active');
+                    }
                 }, 1000); // Allow full fade out
             }, animationDuration);
+        }
+
+        // Winner popup close logic
+        const winPopupClose = document.getElementById('win-popup-close');
+        const winPopup = document.getElementById('win-popup-overlay');
+        
+        if (winPopupClose && winPopup) {
+            winPopupClose.addEventListener('click', () => {
+                winPopup.classList.remove('active');
+                sessionStorage.setItem('win_popup_closed', 'true');
+            });
+            
+            // Also close on backdrop click
+            winPopup.addEventListener('click', (e) => {
+                if (e.target === winPopup) {
+                    winPopup.classList.remove('active');
+                    sessionStorage.setItem('win_popup_closed', 'true');
+                }
+            });
         }
     }
 
