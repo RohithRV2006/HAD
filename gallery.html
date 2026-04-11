@@ -827,6 +827,45 @@
             box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
         }
 
+        /* ==================== TABS ==================== */
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.6rem 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .tab-button:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-button:focus-visible {
+            outline: none;
+            border-radius: 4px 4px 0 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-button.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
         /* ==================== FOOTER ==================== */
         footer {
             background: rgba(0, 0, 0, 0.3);
@@ -854,6 +893,17 @@
 
             .gallery-section {
                 padding: 7rem 1rem 4rem;
+            }
+
+            .gallery-tabs {
+                gap: 1rem;
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .tab-button {
+                font-size: 1rem;
+                padding: 0.5rem 0.8rem;
             }
 
             .gallery-stats {
@@ -893,6 +943,17 @@
 
             .nav-pane {
                 width: 280px;
+            }
+
+            .gallery-tabs {
+                gap: 0.5rem;
+                justify-content: space-around;
+            }
+            
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.5rem;
+                white-space: nowrap;
             }
         }
     </style>
@@ -953,18 +1014,13 @@
             <p>A visual archive of innovation, collaboration, and breakthroughs from HackWell'26</p>
         </header>
 
-        <header class="gallery-header" style="margin-top: 6rem; margin-bottom: 4rem;">
-            <span class="eyebrow" style="color: var(--accent-secondary);">4 March 2026</span>
-            <h2
-                style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-secondary) 50%, var(--accent-glow) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; line-height: 1.1;">
-                Finals - Day</h2>
-            <p style="font-size: 1.1rem; color: var(--text-secondary);">Saranathan College of Engineering</p>
-        </header>
-
-        <div class="gallery-grid" id="thanksgivingGrid">
-
-            <!-- END OF GALLERY ITEMS -->
+        <!-- Tabs Section -->
+        <div class="gallery-tabs">
+            <button id="tab-finals" class="tab-button active" onclick="switchTab('finals')">4 March 2026 Finals</button>
+            <button id="tab-tg" class="tab-button" onclick="switchTab('tg')">Thanks Giving Ceremony</button>
         </div>
+
+        <!-- END OF GALLERY ITEMS -->
         <!--
             ============================================================
             HOW TO ADD MORE PHOTOS TO THE GALLERY
@@ -1249,11 +1305,12 @@
                 <div class="corner-br"></div>
                 <div class="gallery-caption">🥉 Digitronauts — 2nd Runner-up of HackWell'26</div>
             </div>
-            <!-- Photo 18 -->
-            <div class="gallery-item" data-index="18"
-                style="grid-column: 1 / -1; max-width: 350px; width: 100%; margin: 0 auto;">
+        </div> <!-- End of HackWell'26 grid -->
+        <div class="gallery-grid" id="tgGrid" style="display: none;">
+            <!-- TG Photo 17 -->
+            <div class="gallery-item tg-item" data-index="17">
                 <div class="gallery-img-wrapper">
-                    <img src="assets/gallery/18.jpeg" alt="HackWell\'26 — Photo 18" loading="lazy">
+                    <img src="assets/TG/1.jpg" alt="HackWell\'26 — Photo 18" loading="lazy">
                     <div class="gallery-overlay">
                         <div class="overlay-content">
                             <div class="overlay-icon">⤢</div>
@@ -1262,12 +1319,711 @@
                     </div>
                 </div>
                 <div class="corner-br"></div>
-                <div class="gallery-caption">Hackwell Innovation Award: A Special Honour for First-Year Students</div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
             </div>
-            <!-- End of Finals Pictures-->
-        </div> <!-- End of HackWell'26 grid -->
+            <!-- TG Photo 18 -->
+            <div class="gallery-item tg-item" data-index="18">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/10.jpg" alt="HackWell\'26 — Photo 19" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 19 -->
+            <div class="gallery-item tg-item" data-index="19">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/100.jpeg" alt="HackWell\'26 — Photo 20" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 20 -->
+            <div class="gallery-item tg-item" data-index="20">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328684.jpg" alt="HackWell\'26 — Photo 21" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 21 -->
+            <div class="gallery-item tg-item" data-index="21">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328727.jpg" alt="HackWell\'26 — Photo 22" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 22 -->
+            <div class="gallery-item tg-item" data-index="22">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328749.jpg" alt="HackWell\'26 — Photo 23" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 23 -->
+            <div class="gallery-item tg-item" data-index="23">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328753.jpg" alt="HackWell\'26 — Photo 24" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 24 -->
+            <div class="gallery-item tg-item" data-index="24">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328756.jpg" alt="HackWell\'26 — Photo 25" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 25 -->
+            <div class="gallery-item tg-item" data-index="25">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328761.jpg" alt="HackWell\'26 — Photo 26" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 26 -->
+            <div class="gallery-item tg-item" data-index="26">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328771.jpg" alt="HackWell\'26 — Photo 27" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 27 -->
+            <div class="gallery-item tg-item" data-index="27">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328778.jpg" alt="HackWell\'26 — Photo 28" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 28 -->
+            <div class="gallery-item tg-item" data-index="28">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328782.jpg" alt="HackWell\'26 — Photo 29" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 29 -->
+            <div class="gallery-item tg-item" data-index="29">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328792.jpg" alt="HackWell\'26 — Photo 30" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 30 -->
+            <div class="gallery-item tg-item" data-index="30">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328796.jpg" alt="HackWell\'26 — Photo 31" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 31 -->
+            <div class="gallery-item tg-item" data-index="31">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328798.jpg" alt="HackWell\'26 — Photo 32" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 32 -->
+            <div class="gallery-item tg-item" data-index="32">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328800.jpg" alt="HackWell\'26 — Photo 33" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 33 -->
+            <div class="gallery-item tg-item" data-index="33">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328804.jpg" alt="HackWell\'26 — Photo 34" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 34 -->
+            <div class="gallery-item tg-item" data-index="34">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328808.jpg" alt="HackWell\'26 — Photo 35" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 35 -->
+            <div class="gallery-item tg-item" data-index="35">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328810.jpg" alt="HackWell\'26 — Photo 36" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 36 -->
+            <div class="gallery-item tg-item" data-index="36">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328812.jpg" alt="HackWell\'26 — Photo 37" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 37 -->
+            <div class="gallery-item tg-item" data-index="37">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328816.jpg" alt="HackWell\'26 — Photo 38" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 38 -->
+            <div class="gallery-item tg-item" data-index="38">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328818.jpg" alt="HackWell\'26 — Photo 39" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 39 -->
+            <div class="gallery-item tg-item" data-index="39">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328820.jpg" alt="HackWell\'26 — Photo 40" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 40 -->
+            <div class="gallery-item tg-item" data-index="40">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328822.jpg" alt="HackWell\'26 — Photo 41" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 41 -->
+            <div class="gallery-item tg-item" data-index="41">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328824.jpg" alt="HackWell\'26 — Photo 42" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 42 -->
+            <div class="gallery-item tg-item" data-index="42">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328826.jpg" alt="HackWell\'26 — Photo 43" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 43 -->
+            <div class="gallery-item tg-item" data-index="43">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328828.jpg" alt="HackWell\'26 — Photo 44" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 44 -->
+            <div class="gallery-item tg-item" data-index="44">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328832.jpg" alt="HackWell\'26 — Photo 45" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 45 -->
+            <div class="gallery-item tg-item" data-index="45">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328834.jpg" alt="HackWell\'26 — Photo 46" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 46 -->
+            <div class="gallery-item tg-item" data-index="46">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328836.jpg" alt="HackWell\'26 — Photo 47" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 47 -->
+            <div class="gallery-item tg-item" data-index="47">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328838.jpg" alt="HackWell\'26 — Photo 48" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 48 -->
+            <div class="gallery-item tg-item" data-index="48">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/1000328840.jpg" alt="HackWell\'26 — Photo 49" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 49 -->
+            <div class="gallery-item tg-item" data-index="49">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/101.jpeg" alt="HackWell\'26 — Photo 50" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 50 -->
+            <div class="gallery-item tg-item" data-index="50">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/103.jpg" alt="HackWell\'26 — Photo 51" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 51 -->
+            <div class="gallery-item tg-item" data-index="51">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/104.jpg" alt="HackWell\'26 — Photo 52" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 52 -->
+            <div class="gallery-item tg-item" data-index="52">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/105.jpg" alt="HackWell\'26 — Photo 53" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 53 -->
+            <div class="gallery-item tg-item" data-index="53">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/2.jpg" alt="HackWell\'26 — Photo 54" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 54 -->
+            <div class="gallery-item tg-item" data-index="54">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/20.jpg" alt="HackWell\'26 — Photo 55" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 55 -->
+            <div class="gallery-item tg-item" data-index="55">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/201.jpg" alt="HackWell\'26 — Photo 56" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 56 -->
+            <div class="gallery-item tg-item" data-index="56">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/202.jpg" alt="HackWell\'26 — Photo 57" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 57 -->
+            <div class="gallery-item tg-item" data-index="57">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/203.jpg" alt="HackWell\'26 — Photo 58" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 58 -->
+            <div class="gallery-item tg-item" data-index="58">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/204.jpg" alt="HackWell\'26 — Photo 59" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 59 -->
+            <div class="gallery-item tg-item" data-index="59">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/210.jpeg" alt="HackWell\'26 — Photo 60" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 60 -->
+            <div class="gallery-item tg-item" data-index="60">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/211.jpg" alt="HackWell\'26 — Photo 61" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 61 -->
+            <div class="gallery-item tg-item" data-index="61">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/212.jpg" alt="HackWell\'26 — Photo 62" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 62 -->
+            <div class="gallery-item tg-item" data-index="62">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/3.jpg" alt="HackWell\'26 — Photo 63" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 63 -->
+            <div class="gallery-item tg-item" data-index="63">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/30.jpg" alt="HackWell\'26 — Photo 64" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 64 -->
+            <div class="gallery-item tg-item" data-index="64">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/4.jpg" alt="HackWell\'26 — Photo 65" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 65 -->
+            <div class="gallery-item tg-item" data-index="65">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/40.jpg" alt="HackWell\'26 — Photo 66" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 66 -->
+            <div class="gallery-item tg-item" data-index="66">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/5.jpeg" alt="HackWell\'26 — Photo 67" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+            <!-- TG Photo 67 -->
+            <div class="gallery-item tg-item" data-index="67">
+                <div class="gallery-img-wrapper">
+                    <img src="assets/TG/6.jpeg" alt="HackWell\'26 — Photo 68" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon">⤢</div>
+                            <span class="overlay-label">View Full</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="corner-br"></div>
+                <div class="gallery-caption">Thanks Giving Ceremony Moments</div>
+            </div>
+        </div>
 
-        <!-- ThanksGiving Ceremony Header -->
+        <!-- ThanksGiving Ceremony
         <header class="gallery-header" style="margin-top: 6rem; margin-bottom: 4rem;">
             <span class="eyebrow" style="color: var(--accent-secondary);">7 April 2026</span>
             <h2
@@ -1277,8 +2033,6 @@
         </header>
 
         <div class="gallery-grid" id="thanksgivingGrid">
-
-            <!-- END OF GALLERY ITEMS -->
         </div>
         <div class="gallery-item" data-index="19">
             <div class="gallery-img-wrapper">
@@ -1364,6 +2118,20 @@
             <div class="gallery-caption">Our HOD Dr. S. Ravimaran addressing the participants during the ThanksGiving
                 Ceremony</div>
         </div>
+        <div class="gallery-item" data-index="18"
+            style="grid-column: 1 / -1; max-width: 350px; width: 100%; margin: 0 auto;">
+            <div class="gallery-img-wrapper">
+                <img src="assets/gallery/18.jpeg" alt="HackWell\'26 — Photo 18" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">⤢</div>
+                        <span class="overlay-label">View Full</span>
+                    </div>
+                </div>
+            </div>
+            <div class="corner-br"></div>
+            <div class="gallery-caption">Hackwell Innovation Award: A Special Honour for First-Year Students</div>
+        </div>-->
     </section>
 
     <footer>
@@ -1429,6 +2197,32 @@
             }, { threshold: 0.1 });
             items.forEach(item => revealObserver.observe(item));
 
+            
+            // Tab switching logic
+            window.switchTab = function(tab) {
+                const finalsBtn = document.getElementById('tab-finals');
+                const tgBtn = document.getElementById('tab-tg');
+                const finalsGrid = document.getElementById('galleryGrid');
+                const tgGrid = document.getElementById('tgGrid');
+                
+                if (tab === 'finals') {
+                    finalsBtn.classList.add('active');
+                    tgBtn.classList.remove('active');
+                    finalsGrid.style.display = 'grid';
+                    tgGrid.style.display = 'none';
+                } else {
+                    tgBtn.classList.add('active');
+                    finalsBtn.classList.remove('active');
+                    finalsGrid.style.display = 'none';
+                    tgGrid.style.display = 'grid';
+                    
+                    // Trigger observer for new items
+                    document.querySelectorAll('.gallery-item.tg-item').forEach(item => {
+                        item.classList.add('visible');
+                    });
+                }
+            };
+
             // ── Lightbox ─────────────────────────────────────────────
             const images = [
                 'assets/gallery/1.jpeg',
@@ -1449,21 +2243,57 @@
                 'assets/gallery/16.jpeg',
                 'assets/gallery/17.jpeg',
                 'assets/gallery/18.jpeg',
-                'assets/TGC/1.jpeg',
-                'assets/TGC/2.jpeg',
-                'assets/TGC/3.1.jpeg',
-                'assets/TGC/3.2.jpeg',
-                'assets/TGC/3.jpeg',
-                'assets/TGC/4.1.jpeg',
-                'assets/TGC/4.2.jpeg',
-                'assets/TGC/4.3.jpeg',
-                'assets/TGC/4.4.jpeg',
-                'assets/TGC/4.5.jpeg',
-                'assets/TGC/4.6.jpeg',
-                'assets/TGC/4.7.jpeg',
-                'assets/TGC/4.jpeg',
-                'assets/TGC/5.jpeg',
-                'assets/TGC/6.jpeg'
+                'assets/TG/1.jpg',
+                'assets/TG/10.jpg',
+                'assets/TG/100.jpeg',
+                'assets/TG/1000328684.jpg',
+                'assets/TG/1000328727.jpg',
+                'assets/TG/1000328749.jpg',
+                'assets/TG/1000328753.jpg',
+                'assets/TG/1000328756.jpg',
+                'assets/TG/1000328761.jpg',
+                'assets/TG/1000328771.jpg',
+                'assets/TG/1000328778.jpg',
+                'assets/TG/1000328782.jpg',
+                'assets/TG/1000328792.jpg',
+                'assets/TG/1000328796.jpg',
+                'assets/TG/1000328798.jpg',
+                'assets/TG/1000328800.jpg',
+                'assets/TG/1000328804.jpg',
+                'assets/TG/1000328808.jpg',
+                'assets/TG/1000328810.jpg',
+                'assets/TG/1000328812.jpg',
+                'assets/TG/1000328816.jpg',
+                'assets/TG/1000328818.jpg',
+                'assets/TG/1000328820.jpg',
+                'assets/TG/1000328822.jpg',
+                'assets/TG/1000328824.jpg',
+                'assets/TG/1000328826.jpg',
+                'assets/TG/1000328828.jpg',
+                'assets/TG/1000328832.jpg',
+                'assets/TG/1000328834.jpg',
+                'assets/TG/1000328836.jpg',
+                'assets/TG/1000328838.jpg',
+                'assets/TG/1000328840.jpg',
+                'assets/TG/101.jpeg',
+                'assets/TG/103.jpg',
+                'assets/TG/104.jpg',
+                'assets/TG/105.jpg',
+                'assets/TG/2.jpg',
+                'assets/TG/20.jpg',
+                'assets/TG/201.jpg',
+                'assets/TG/202.jpg',
+                'assets/TG/203.jpg',
+                'assets/TG/204.jpg',
+                'assets/TG/210.jpeg',
+                'assets/TG/211.jpg',
+                'assets/TG/212.jpg',
+                'assets/TG/3.jpg',
+                'assets/TG/30.jpg',
+                'assets/TG/4.jpg',
+                'assets/TG/40.jpg',
+                'assets/TG/5.jpeg',
+                'assets/TG/6.jpeg'
             ];
             const alts = [
                 'HackWell\'26 — Photo 1',
@@ -1484,6 +2314,7 @@
                 'HackWell\'26 — Photo 16',
                 'HackWell\'26 — Photo 17',
                 'HackWell\'26 — Photo 18',
+                'HackWell\'26 — Photo 18',
                 'HackWell\'26 — Photo 19',
                 'HackWell\'26 — Photo 20',
                 'HackWell\'26 — Photo 21',
@@ -1494,7 +2325,46 @@
                 'HackWell\'26 — Photo 26',
                 'HackWell\'26 — Photo 27',
                 'HackWell\'26 — Photo 28',
-                'HackWell\'26 — Photo 29'
+                'HackWell\'26 — Photo 29',
+                'HackWell\'26 — Photo 30',
+                'HackWell\'26 — Photo 31',
+                'HackWell\'26 — Photo 32',
+                'HackWell\'26 — Photo 33',
+                'HackWell\'26 — Photo 34',
+                'HackWell\'26 — Photo 35',
+                'HackWell\'26 — Photo 36',
+                'HackWell\'26 — Photo 37',
+                'HackWell\'26 — Photo 38',
+                'HackWell\'26 — Photo 39',
+                'HackWell\'26 — Photo 40',
+                'HackWell\'26 — Photo 41',
+                'HackWell\'26 — Photo 42',
+                'HackWell\'26 — Photo 43',
+                'HackWell\'26 — Photo 44',
+                'HackWell\'26 — Photo 45',
+                'HackWell\'26 — Photo 46',
+                'HackWell\'26 — Photo 47',
+                'HackWell\'26 — Photo 48',
+                'HackWell\'26 — Photo 49',
+                'HackWell\'26 — Photo 50',
+                'HackWell\'26 — Photo 51',
+                'HackWell\'26 — Photo 52',
+                'HackWell\'26 — Photo 53',
+                'HackWell\'26 — Photo 54',
+                'HackWell\'26 — Photo 55',
+                'HackWell\'26 — Photo 56',
+                'HackWell\'26 — Photo 57',
+                'HackWell\'26 — Photo 58',
+                'HackWell\'26 — Photo 59',
+                'HackWell\'26 — Photo 60',
+                'HackWell\'26 — Photo 61',
+                'HackWell\'26 — Photo 62',
+                'HackWell\'26 — Photo 63',
+                'HackWell\'26 — Photo 64',
+                'HackWell\'26 — Photo 65',
+                'HackWell\'26 — Photo 66',
+                'HackWell\'26 — Photo 67',
+                'HackWell\'26 — Photo 68'
             ];
 
 
