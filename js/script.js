@@ -332,8 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initialize immediately to avoid 00 flash
+    let timerInterval;
     runTimer();
-    const timerInterval = setInterval(runTimer, 1000);
+    timerInterval = setInterval(runTimer, 1000);
 
 
     // --- Add Staggered Delays for Animation ---

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Highlights & Gratitude | HackWell'26</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="assets/had-logo.jpeg">
+    <style>
+        /* Gratitude Specific Styles */
+        .gratitude-section {
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .special-thanks-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 4rem;
+            align-items: center;
+        }
+        .person-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .person-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.2);
+            border-color: var(--accent-primary);
+        }
+        .photo-placeholder {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--accent-primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .person-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .person-role {
+            font-size: 1rem;
+            color: var(--accent-glow);
+            font-weight: 500;
+        }
+        .row-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo-container">
+                <img src="assets/had-logo.jpeg" alt="HackWell Logo" class="nav-logo-img">
+                <span class="brand-text">HackWell <span class="brand-sep">–</span> <span class="brand-sub">AI &
+                        DS</span></span>
+            </a>
+            <ul class="nav-links-horizontal">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#theme">Theme</a></li>
+                <li><a href="index.html#timeline">Timeline</a></li>
+                <li><a href="index.html#sponsors">Sponsors</a></li>
+                <li><a href="index.html#rules">Rules</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="winners.html">Winners</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li>
+                    <img src="assets/scelogo.jpg" alt="SCE Logo" class="nav-sce-logo">
+                </li>
+            </ul>
+            <div class="menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-pane">
+        <button class="nav-pane-close">&times;</button>
+        <ul class="nav-pane-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#theme">Theme</a></li>
+            <li><a href="index.html#timeline">Timeline</a></li>
+            <li><a href="index.html#rules">Rules</a></li>
+            <li><a href="index.html#sponsors">Sponsors</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="winners.html">Winners</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </div>
+    <div class="nav-backdrop"></div>
+
+    <section class="gratitude-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 2.5rem); text-align: center; margin-bottom: 2rem;">Hackwell’26 – Event Highlights & Gratitude</h2>
+        </div>
+        
+        <div class="card fade-in" style="padding: 2.5rem; line-height: 1.8; text-align: justify;">
+            <p style="color: var(--text-secondary);">Hackwell’26 was successfully conducted with immense enthusiasm,
+                innovation, and collaboration. The event served as a dynamic platform for aspiring minds to showcase
+                their creativity and problem-solving skills in the domain of Artificial Intelligence and Data
+                Science.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We express our heartfelt gratitude to our
+                respected <strong style="color: var(--text-primary);">Principal, Dr. D. Valavan</strong>, and
+                <strong style="color: var(--text-primary);">Secretary, Shri S. Ravindran</strong>, along with our
+                esteemed institution, for their continuous
+                support and encouragement in making this event a grand success.
+            </p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We extend our sincere thanks to <strong
+                    style="color: var(--text-primary);">Dr. S. Ravimaran (CoE, HoD – AI &
+                    DS)</strong>, and <strong style="color: var(--text-primary);">Mr.
+                    Sadheesh, Faculty coordinator</strong>, for their exceptional guidance, planning, and efforts in
+                organizing
+                Hackwell’26 seamlessly.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We are deeply grateful to our <strong
+                    style="color: var(--text-primary);">sponsors – Microsoft, IEI, and Tech Shiksha</strong> – for
+                their valuable support and contribution towards the success of this event.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">A special note of appreciation to our
+                distinguished <strong style="color: var(--text-primary);">jury members</strong>:</p>
+            <ul style="margin-top: 0.5rem; margin-left: 2.5rem; color: var(--text-secondary); line-height: 1.8;">
+                <li>Mr. Sridharan V, Associate Vice President at Hitachi Group</li>
+                <li>Mr. Vinoth Kumar N, Data Scientist at PwC</li>
+                <li>Mr. Rohith Kumar R, Founder of Euredas.ai</li>
+            </ul>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We thank them for their excellent mentorship,
+                insightful evaluation, and for being incredibly kind and approachable to all participants. We also
+                extend our gratitude to the <strong style="color: var(--text-primary);">jury members of the
+                    preliminary round of Hackwell’26</strong> for their valuable time and effort.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We are honored by the presence of our <strong
+                    style="color: var(--text-primary);">Chief Guest, Mr. Ramesh Kumar P K, Additional General
+                    Manager at BHEL Trichy</strong>, and we sincerely thank him for sharing valuable insights into
+                today’s technological landscape and for distributing the prizes.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Our heartfelt appreciation goes to our
+                <strong style="color: var(--text-primary);">Chief Student Coordinators, Mr. Rishi Kumar S and Mr.
+                    Dhivakar B (Final Year AI & DS)</strong>, for organizing and managing the event seamlessly.
+            </p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We also thank all the <strong
+                    style="color: var(--text-primary);">student coordinators and volunteers</strong> for their
+                dedication and valuable support throughout the event. A special acknowledgment to all the <strong
+                    style="color: var(--text-primary);">faculty members of the AI & DS department</strong> for their
+                continuous assistance in conducting Hackwell’26 successfully.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">We extend our sincere thanks to all the
+                <strong style="color: var(--text-primary);">participants of Hackwell’26</strong>, whose enthusiasm,
+                innovation, and competitive spirit made this event truly vibrant and impactful.
+            </p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Finally, we thank all those who contributed
+                directly and indirectly in making Hackwell’26 a remarkable success.</p>
+            <p style="margin-top: 2rem; text-align: center; font-size: 1.2rem; color: var(--accent-glow);">
+                Hackwell’26 was not just an event, but a celebration of innovation, teamwork, and learning.</p>
+            <p
+                style="margin-top: 1.5rem; text-align: center; font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+                See you all in Hackwell’27!</p>
+
+            <!-- Special Thanks Section -->
+            <div class="special-thanks-grid fade-in">
+                <!-- Row 1: Dr. Ravimaran -->
+                <div class="row-container">
+                    <div class="person-card">
+                        <div class="photo-placeholder">
+                            <img src="assets/ravimaran-aid.jpg" alt="Event Head">
+                        </div>
+                        <div class="person-name">Dr. S. Ravimaran</div>
+                        <div class="person-role">CoE, HoD of AI & DS</div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Mr. Sadheesh -->
+                <div class="row-container">
+                    <div class="person-card">
+                        <div class="photo-placeholder">
+                            <img src="assets/sadeesh7141.jpg" alt="Faculty Co-ordinator">
+                        </div>
+                        <div class="person-name">Mr. Sadheesh</div>
+                        <div class="person-role">Faculty Coordinator</div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Chief Student Coords -->
+                <div class="row-container">
+                    <div class="person-card">
+                        <div class="photo-placeholder">
+                            <img src="" alt="CSC">
+                        </div>
+                        <div class="person-name">Mr. Rishi Kumar S</div>
+                        <div class="person-role">Chief Student Coordinator</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="photo-placeholder">
+                            <img src="" alt="CSC">
+                        </div>
+                        <div class="person-name">Mr. Dhivakar B</div>
+                        <div class="person-role">Chief Student Coordinator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem 0; color: var(--text-secondary);">
+        <p>© 2026 HackWell | Saranathan College of Engineering</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Ensure nav bar is scrolled by default on subpages
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('nav');
+            if (nav) nav.classList.add('scrolled');
+        });
+    </script>
+</body>
+</html>
