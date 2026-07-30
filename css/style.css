@@ -2788,6 +2788,8 @@ footer {
 /* Ensure secondary buttons in hero match the transparent logic */
 .hero-btns .btn-tech-secondary {
     background: transparent !important;
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.85rem;
 }
 
 .hero-btns .btn-tech-secondary .btn-border {
