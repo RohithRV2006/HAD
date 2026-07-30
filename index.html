@@ -4,148 +4,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackWell'26</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>HackWell Countdown</title>
     <link rel="icon" type="image/jpeg" href="assets/had-logo.jpeg">
+    <link rel="stylesheet" href="css/style.css">
     <style>
+        /* Typography Setup */
         @font-face {
-            font-family: 'Avengers';
+            font-family: 'HackwellTitleFont';
             src: url('assets/avengersfont/AvengeanceHeroicAvengerNormal-Bz7d.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'HackwellTitleFont';
+            src: url('assets/Neo.ttf') format('truetype');
+            unicode-range: U+0041, U+0061;
+            /* Capital A and lowercase a */
+        }
+
+        @font-face {
+            font-family: 'MondayFont';
+            src: url('assets/Monday.ttf') format('truetype');
+        }
+
+        /* Layout & Background */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('assets/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #0B0F1A;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .center-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        /* Glitch Text styling */
+        .hero-title {
+            font-family: 'HackwellTitleFont', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: normal;
+            line-height: 1;
+            margin: 10vh 0 2rem 0;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.5));
+            letter-spacing: 5px;
+        }
+
+        .hero-title::before,
+        .hero-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.8;
+        }
+
+        .hero-title::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            animation: glitch-anim-1 20s infinite linear alternate-reverse;
+        }
+
+        .hero-title::after {
+            left: -2px;
+            text-shadow: 2px 0 #00fff9;
+            animation: glitch-anim-2 30s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+            }
+
+            5% {
+                clip-path: inset(10% 0 10% 0);
+            }
+
+            10% {
+                clip-path: inset(80% 0 5% 0);
+            }
+
+            15% {
+                clip-path: inset(40% 0 40% 0);
+            }
+
+            20% {
+                clip-path: inset(60% 0 20% 0);
+            }
+
+            25% {
+                clip-path: inset(15% 0 80% 0);
+            }
+
+            30% {
+                clip-path: inset(90% 0 5% 0);
+            }
+
+            35% {
+                clip-path: inset(30% 0 60% 0);
+            }
+
+            40% {
+                clip-path: inset(70% 0 20% 0);
+            }
+
+            45% {
+                clip-path: inset(10% 0 80% 0);
+            }
+
+            50% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            55% {
+                clip-path: inset(80% 0 5% 0);
+            }
+
+            60% {
+                clip-path: inset(5% 0 85% 0);
+            }
+
+            65% {
+                clip-path: inset(40% 0 40% 0);
+            }
+
+            70% {
+                clip-path: inset(90% 0 10% 0);
+            }
+
+            75% {
+                clip-path: inset(20% 0 60% 0);
+            }
+
+            80% {
+                clip-path: inset(60% 0 30% 0);
+            }
+
+            85% {
+                clip-path: inset(10% 0 70% 0);
+            }
+
+            90% {
+                clip-path: inset(70% 0 20% 0);
+            }
+
+            95% {
+                clip-path: inset(30% 0 50% 0);
+            }
+
+            100% {
+                clip-path: inset(5% 0 90% 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            5% {
+                clip-path: inset(80% 0 5% 0);
+            }
+
+            10% {
+                clip-path: inset(30% 0 40% 0);
+            }
+
+            15% {
+                clip-path: inset(70% 0 10% 0);
+            }
+
+            20% {
+                clip-path: inset(5% 0 90% 0);
+            }
+
+            25% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            30% {
+                clip-path: inset(20% 0 70% 0);
+            }
+
+            35% {
+                clip-path: inset(90% 0 5% 0);
+            }
+
+            40% {
+                clip-path: inset(15% 0 80% 0);
+            }
+
+            45% {
+                clip-path: inset(60% 0 20% 0);
+            }
+
+            50% {
+                clip-path: inset(40% 0 40% 0);
+            }
+
+            55% {
+                clip-path: inset(5% 0 85% 0);
+            }
+
+            60% {
+                clip-path: inset(80% 0 10% 0);
+            }
+
+            65% {
+                clip-path: inset(30% 0 50% 0);
+            }
+
+            70% {
+                clip-path: inset(70% 0 20% 0);
+            }
+
+            75% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            80% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            85% {
+                clip-path: inset(90% 0 5% 0);
+            }
+
+            90% {
+                clip-path: inset(20% 0 70% 0);
+            }
+
+            95% {
+                clip-path: inset(60% 0 20% 0);
+            }
+
+            100% {
+                clip-path: inset(15% 0 80% 0);
+            }
+        }
+
+        /* Quote Text */
+        .quote {
+            font-family: 'MondayFont', sans-serif;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            letter-spacing: 1px;
+            line-height: 1.5;
+            color: #fff;
+        }
+
+        .quote .line-2 {
+            display: block;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: var(--accent-glow, #60A5FA);
+        }
+
+        /* Countdown Timer */
+        .timer-container {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 1.5rem 1rem;
+            border-radius: 10px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s ease;
+        }
+
+        .time-value {
+            font-family: 'Space Grotesk', sans-serif, monospace;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+            color: #fff;
+        }
+
+        .time-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: #9CA3AF;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .colon {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #60A5FA;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Animation class for numbers */
+        .scale-pop {
+            animation: pop 0.25s ease-out;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+                color: #fff;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Optional: Add a dark overlay so text is more readable against bg */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 1;
+        }
+
+        /* Loading animation for fonts */
+        .center-container {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Timer Overrides */
+        .flip-timer {
+            transform: scale(0.85);
+        }
+        
+        .flip-timer .top-bg, 
+        .flip-timer .bot-bg, 
+        .flip-timer .leaf-top, 
+        .flip-timer .leaf-bot,
+        .flip-timer .segment {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 15vw;
+                letter-spacing: 2px;
+                margin-top: 5vh;
+            }
+
+            .quote {
+                font-size: 0.8rem;
+            }
+
+            .quote .line-2 {
+                font-size: 1rem;
+            }
+
+            .flip-timer {
+                transform: scale(0.75);
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading Animation -->
-    <div class="id-loader" id="idLoader">
-        <div class="nn-visualizer">
-            <!-- SVG for Connections (Handled by JS) -->
-            <svg id="nn-connections" width="100%" height="100%"
-                style="position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; overflow: visible;"></svg>
 
-            <!-- Layers Container -->
-            <div class="nn-layer l-1">
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-            </div>
-            <div class="nn-layer l-2">
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-            </div>
-            <div class="nn-layer l-3">
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-            </div>
-            <div class="nn-layer l-4">
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-            </div>
-            <div class="nn-layer l-5">
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-                <div class="node"></div>
-            </div>
+    <div class="overlay"></div>
 
-            <!-- Dynamic Connections (Visualized via CSS Gradients/Lines) -->
-            <div class="nn-connections-bg"></div>
+    <div class="center-container">
+        <!-- HACKWELL Glitching Text -->
+        <a href="index2.html"><h1 class="hero-title" data-text="HACKWELL">HACKWELL</h1></a>
+
+        <!-- Quote -->
+        <div class="quote">
+            All of you have lived stolen lives and now you must give them back.
+            <span class="line-2">Get ready...</span>
         </div>
-        <div class="loader-text-new">INITIALIZING NEURAL ARCHITECTURE...</div>
-    </div>
 
-    <!-- Win1 Popup Image -->
-    <!--<div id="win-popup-overlay" class="win-popup-overlay">
-        <div class="win-popup-content">
-            <button class="win-popup-close" id="win-popup-close">&times;</button>
-            <img src="assets/Front poster.jpg" alt="Notification" class="win-popup-img">
-        </div>
-    </div>-->
-
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <!-- Logo (visible on scroll) -->
-            <a href="#home" class="logo-container">
-                <img src="assets/had-logo.jpeg" alt="HackWell Logo" class="nav-logo-img">
-                <span class="brand-text">HackWell <span class="brand-sep">–</span> <span class="brand-sub">AI &
-                        DS</span></span>
-            </a>
-
-            <!-- Horizontal Nav Links (visible on scroll) -->
-            <ul class="nav-links-horizontal">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#theme">Theme</a></li>
-                <li><a href="#timeline">Timeline</a></li>
-                <li><a href="#sponsors">Sponsors</a></li>
-                <li><a href="#rules">Rules</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="winners.html">Winners</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li>
-                    <img src="assets/scelogo.jpg" alt="SCE Logo" class="nav-sce-logo">
-                </li>
-            </ul>
-
-            <!-- Menu Toggle (visible in Hero) -->
-            <div class="menu-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Right-Side Navigation Pane -->
-    <div class="nav-pane">
-        <button class="nav-pane-close">&times;</button>
-        <ul class="nav-pane-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#theme">Theme</a></li>
-            <li><a href="#timeline">Timeline</a></li>
-            <li><a href="#rules">Rules</a></li>
-            <li><a href="#sponsors">Sponsors</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="winners.html">Winners</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-        </ul>
-    </div>
-
-    <!-- Backdrop for pane -->
-    <div class="nav-backdrop"></div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <canvas id="neural-canvas"></canvas>
-        <div class="hero-content fade-in">
-            <br>
-            <h1 class="head" data-text="HackWell'26" style="margin-top: 3rem; font-family: 'Avengers', sans-serif; font-weight: normal; letter-spacing: 2px;">HackWell</h1>
-            <!--<p class="subtitle" style="margin-bottom: 2rem;">
-                "Build Fast, Think Big, Innovate Smart"
-            </p>-->
-            <p class="initext">
-                An initiative of the <br> Department of Artificial Intelligence & Data Science,<br>Saranathan College of
-                Engineering
-            </p>
-            
-
-            <br>
-            <!-- <h3 class="timer-label">Hackwell'26 Ended... See you on 2027</h3></br> -->
-            <div class="flip-timer">
+        <!-- Timer -->
+        <div class="flip-timer">
                 <div class="flip-unit" id="days">
                     <div class="flip-card">
                         <div class="segment top-bg">00</div>
@@ -186,346 +480,9 @@
                     <div class="label">SECONDS</div>
                 </div>
             </div>
-
-
-            <p class="initext">
-                Coming soon...
-            </p>
-
-            <div class="hero-btns fade-in">
-                <!-- <a href="prelims.html" class="btn-tech btn-tech-secondary">
-                    <span class="btn-text">Preliminary Round Results</span>
-                    <span class="btn-border"></span>
-                </a> -->
-                <!-- <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDhjSdDLU7FeFXmwT9LVAeJRNI0WU0IRZJkAIQU9hDehhVpw/viewform?usp=preview"
-                    class="btn-tech btn-tech-secondary" target="_blank">
-                    <span class="btn-text">Register</span>
-                    <span class="btn-border"></span>
-                </a> -->
-                <a href="problem-statements.html" class="btn-tech btn-tech-secondary">
-                    <span class="btn-text">Problem Statements</span>
-                    <span class="btn-border"></span>
-                </a>
-                <a href="winners.html" class="btn-tech btn-tech-secondary">
-                    <span class="btn-text">Winners</span>
-                    <span class="btn-border"></span>
-                </a>
-                <a href="gallery.html" class="btn-tech btn-tech-secondary">
-                    <span class="btn-text">Gallery</span>
-                    <span class="btn-border"></span>
-                </a>
-                <!-- <a href="assets/HackWell-Temp.pptx" class="btn-tech btn-tech-secondary" download>
-                    <span class="btn-text">PPT Template</span>
-                    <span class="btn-border"></span>
-                </a> -->
-            </div>
-        </div>
-
-        <!-- Marquee Banner -->
-        <!--<div class="hero-marquee">
-            <div class="marquee-inner">
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-                <span>🎉 Thanks Giving Ceremony on April 7th 2026 🎉</span>
-            </div>
-        </div> -->
-    </section>
-
-    <!-- Event Highlights & Gratitude Section -->
-    <section id="highlights" style="padding-top: 4rem; padding-bottom: 2rem;">
-        <div class="section-header fade-in">
-            <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 2.5rem);">Hackwell’26 – Event Highlights &
-                Gratitude</h2>
-        </div>
-        <div class="about-grid"
-            style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto; text-align: center;">
-            <div class="card fade-in" style="padding: 2.5rem; line-height: 1.8;">
-                <p style="color: var(--text-secondary); margin-bottom: 2rem; text-align: justify;">Hackwell’26 was successfully conducted with immense enthusiasm,
-                    innovation, and collaboration. The event served as a dynamic platform for aspiring minds to showcase
-                    their creativity and problem-solving skills in the domain of Artificial Intelligence and Data
-                    Science. We extend our sincere thanks to all the participants, faculty, and sponsors who made this possible.</p>
-                <div class="hero-btns fade-in">
-                <a href="gratitude.html" class="btn-tech btn-tech-secondary" style="display: inline-block;">
-                    <span class="btn-text">Read Event Highlights & Gratitude</span>
-                    <span class="btn-border"></span>
-                </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Theme Section -->
-    <section id="theme">
-        <div class="section-header fade-in">
-            <h2 class="section-title">Themes</h2>
-            <p class="section-subtitle">Exploring the Frontiers of AI</p>
-        </div>
-
-        <div class="theme-grid">
-            <div class="card fade-in delay-100">
-                <h3>Climate Tech & Green Innovation</h3>
-                <!-- <p>Developing sustainable solutions using AI to monitor, model, and mitigate environmental challenges
-                    for a greener future.</p> -->
-                <p style="text-align: justify;">Developing sustainable solutions using AI to monitor, model, and
-                    mitigate environmental challenges
-                    for a greener future.</p>
-            </div>
-            <div class="card fade-in delay-200">
-                <h3>AI for Everyone</h3>
-                <!-- <p>Democratizing Artificial Intelligence by creating accessible, inclusive, and user-friendly tools that
-                    empower individuals across all domains.</p> -->
-                <p style="text-align: justify;">Democratizing Artificial Intelligence by creating accessible, inclusive,
-                    and user-friendly tools that
-                    empower individuals across all domains.</p>
-            </div>
-            <div class="card fade-in delay-300">
-                <h3>Campus to Corporate</h3>
-                <!-- <p>Bridging the gap between academic learning and industry demands through intelligent career
-                    development and skill-mapping systems.</p> -->
-                <p style="text-align: justify;">Bridging the gap between academic learning and industry demands through
-                    intelligent career
-                    development and skill-mapping systems.</p>
-            </div>
-            <div class="card fade-in delay-400">
-                <h3>Applied Generative AI</h3>
-                <!-- <p>Harnessing the power of LLMs and generative models to create novel applications in content creation,
-                    coding, and design.</p> -->
-                <p style="text-align: justify;">Harnessing the power of LLMs and generative models to create novel
-                    applications in content creation,
-                    coding, and design.</p>
-            </div>
-            <div class="card fade-in delay-500">
-                <h3>Intelligent Systems</h3>
-                <!-- <p>Building autonomous, adaptive, and efficient systems that integrate hardware and software for smart
-                    automation and decision-making.</p> -->
-                <p style="text-align: justify;">Building autonomous, adaptive, and efficient systems that integrate
-                    hardware and software for smart
-                    automation and decision-making.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sponsors -->
-    <section id="sponsors">
-        <div class="section-header fade-in">
-            <h2 class="section-title">Sponsors</h2>
-            <p class="section-subtitle">Supported by Industry Leaders</p>
-        </div>
-
-        <div class="sponsors-grid fade-in">
-            <img src="./assets/microsoft-logo.jpeg" alt="Microsoft" class="sponsor-logo" loading="lazy" width="200"
-                height="80">
-            <img src="./assets/iei.png" alt="IEI-TLC" class="sponsor-logo" loading="lazy" width="200" height="80">
-            <img src="./assets/tech-shiksha.jpg" alt="Tech Shiksha" class="sponsor-logo" loading="lazy" width="200"
-                height="80">
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-header fade-in">
-            <h2 class="section-title">About HackWell</h2>
-            <p class="section-subtitle">Innovate, Implement, Inspire</p>
-        </div>
-
-        <div class="about-grid">
-            <div class="about-col fade-in">
-                <h3>About Saranathan College of Engineering</h3>
-                <!-- <p>
-                    Saranathan College of Engineering was founded by ‘Vidya Seva Ratnam’ and ‘Guru Seva Mani’ Auditor
-                    Sri. K. Santhanam in the year 1998. It is a self-financing institution approved by AICTE and
-                    attained autonomous status in 2025. The college currently has an annual intake of 720 students
-                    across 10 undergraduate programs and 132 students across 5 postgraduate programs.
-                </p> -->
-                <p style="text-align: justify;">
-                    Saranathan College of Engineering was founded by ‘Vidya Seva Ratnam’ and ‘Guru Seva Mani’ Auditor
-                    Sri. K. Santhanam in the year 1998. It is a self-financing institution approved by AICTE and
-                    attained autonomous status in 2025. The college currently has an annual intake of 720 students
-                    across 10 undergraduate programs and 132 students across 5 postgraduate programs.
-                </p>
-                <!-- <p>
-                    Among its academic offerings, the Department of Artificial Intelligence and Data Science, introduced
-                    in 2021, stands out for its focus on emerging technologies and innovation. The department actively
-                    promotes hands-on learning and problem-solving through initiatives such as the Hackwell Hackathon,
-                    K-Thursday, and its own student-driven Odysseys Club.
-                </p> -->
-                <p style="text-align: justify;">
-                    Among its academic offerings, the Department of Artificial Intelligence and Data Science, introduced
-                    in 2021, stands out for its focus on emerging technologies and innovation. The department actively
-                    promotes hands-on learning and problem-solving through initiatives such as the Hackwell Hackathon,
-                    K-Thursday, and its own student-driven Odysseys Club.
-                </p>
-                <!-- <p>
-                    With consistent placement records, active participation in professional bodies, entrepreneurship
-                    initiatives supported by the Government of Tamil Nadu, and a vibrant student community, Saranathan
-                    College of Engineering continues to be a preferred destination for aspiring engineers and
-                    innovators.
-                </p> -->
-                <p style="text-align: justify;">
-                    With consistent placement records, active participation in professional bodies, entrepreneurship
-                    initiatives supported by the Government of Tamil Nadu, and a vibrant student community, Saranathan
-                    College of Engineering continues to be a preferred destination for aspiring engineers and
-                    innovators.
-                </p>
-            </div>
-
-            <div class="about-col fade-in">
-                <h3>About HackWell</h3>
-                <!-- <p>
-                    Hackwell serves as a powerful catalyst for innovation and experiential learning by transforming
-                    ideas into impactful, real-world solutions. The hackathon creates an immersive environment where
-                    students move beyond classroom learning and actively engage with practical challenges using
-                    cutting-edge technologies.
-                </p> -->
-                <p style="text-align: justify;">
-                    Hackwell serves as a powerful catalyst for innovation and experiential learning by transforming
-                    ideas into impactful, real-world solutions. The hackathon creates an immersive environment where
-                    students move beyond classroom learning and actively engage with practical challenges using
-                    cutting-edge technologies.
-                </p>
-                <!-- <p>
-                    Hackwell fosters a culture of creativity and continuous learning, encouraging students to think
-                    independently, experiment boldly, and push the boundaries of innovation. It also acts as a vital
-                    bridge between academia and industry by exposing participants to current technological trends,
-                    industry-relevant problem statements, and real-time development practices.
-                </p> -->
-                <p style="text-align: justify;">
-                    Hackwell fosters a culture of creativity and continuous learning, encouraging students to think
-                    independently, experiment boldly, and push the boundaries of innovation. It also acts as a vital
-                    bridge between academia and industry by exposing participants to current technological trends,
-                    industry-relevant problem statements, and real-time development practices.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section id="timeline">
-        <div class="section-header fade-in">
-            <h2 class="section-title">Event Timeline</h2>
-            <p class="section-subtitle">The Roadmap to Innovation</p>
-        </div>
-
-        <div class="timeline">
-            <div class="timeline-item fade-in">
-                <div class="timeline-date">02 February 2026</div>
-                <h3 class="timeline-title">Registration Opens</h3>
-                <p style="color: var(--text-secondary);">Start forming your teams and registering for the event.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-date">08 February 2026</div>
-                <h3 class="timeline-title">Registration Closes</h3>
-                <p style="color: var(--text-secondary);">Final deadline for team registrations.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-date">23 February 2026</div>
-                <h3 class="timeline-title">Preliminary Round</h3>
-                <p style="color: var(--text-secondary);">Initial evaluation and shortlisting of teams.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-date">4 March 2026</div>
-                <h3 class="timeline-title">Finals</h3>
-                <p style="color: var(--text-secondary);">The ultimate showdown - present your solutions and compete for
-                    the top spot.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-date">06 April 2026</div>
-                <h3 class="timeline-title">Thanks Giving Ceremony</h3>
-                <p style="color: var(--text-secondary);">A Event of Gratitude - Honoring the participants and organizers
-                    for their contributions.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Rules Section -->
-    <section id="rules">
-        <div class="section-header fade-in">
-            <h2 class="section-title">Rules & Guidelines</h2>
-        </div>
-
-        <div class="rules-container fade-in" style="max-width: 900px; margin: 0 auto;">
-            <div class="card" style="padding: 2rem;">
-                <ol class="rules-list"
-                    style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem; display: grid; gap: 1rem;">
-                    <li>Each team should consist of only four members.</li>
-                    <li>All notifications will be shared through the Team Leader.</li>
-                    <li>Teams must submit their problem statement within the specified deadline.</li>
-                    <li>Open-source libraries, APIs, and datasets may be used.</li>
-                    <li>Judges’ decisions are final and must be accepted by all participants.</li>
-                    <li>Only Artificial Intelligence and Data Science students are eligible to participate.</li>
-                    <li>No Registration Fee. ₹200 applicable for final-round participants.</li>
-                    <li>Teams must be present at the venue on time; latecomers may be disqualified.</li>
-                    <li>Each team must bring their own laptops, chargers, and required tools.</li>
-                    <li>Internet facilities will be provided, but participants are encouraged to have a backup
-                        connection.</li>
-                    <li>Teams must maintain decorum, respect, and professional conduct throughout the event.</li>
-                    <li>Any form of misconduct, plagiarism, or rule violation will result in immediate disqualification.
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    <!-- Contact & Footer -->
-    <section id="contact" style="padding-bottom: 2rem;">
-        <div class="section-header fade-in">
-            <h2 class="section-title">Contact Us</h2>
-        </div>
-        <div class="contact-container fade-in"></div>
-        <div class="clgadd" style=" color: var(--text-secondary);">
-            <p>Address: </p>
-            <p>Saranathan College of Engineering Venkateswara Nagar, </p>
-            <p> Trichy-Madurai Main Road (NH 45 B), Edamalaipatti Pudhur (Post),</p>
-            <p> Panjappur, Tiruchirappalli - 620012</p>
-        </div>
-
-        <div>
-            <br>
-            <p style=" color: var(--text-secondary);">
-                For any queries or assistance, feel free to reach out to our coordinators:
-            </p>
-        </div>
-
-
-        <div class="contact-links">
-            <br>
-            <div class="contact-item">Email: aidshackwell@gmail.com</div>
-            <div class="contact-item">Chief Student Co-ordinator : +91 9677426225 </div>
-            <div class="contact-item">Assistant Chief Student Co-ordinator : +91 6374627875 </div>
-        </div>
-
-        <div class="social-icons">
-            <a href="http://www.linkedin.com/in/hackwell-ai-ds-7333463a9" class="social-icon" target="_blank">in</a>
-
-            <a href="https://www.instagram.com/aids.hackwell?utm_source=qr&igsh=NjZweGMzMWV6YWp5" target="_blank"> <img
-                    class="social-icon" src="assets/insta.jpeg" alt="instagram"></a>
-        </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 HackWell | Saranathan College of Engineering</p>
-    </footer>
-
-    <!-- Holographic Alert Modal -->
-    <div id="holo-overlay" class="holo-overlay">
-        <div class="holo-modal">
-            <div class="holo-header">INFO_ALERT // SYSTEM_MSG</div>
-            <div class="holo-content">
-                <p id="holo-message">Alert Message</p>
-            </div>
-            <button class="holo-close" onclick="closeHolographicAlert()">ACKNOWLEDGE</button>
-        </div>
     </div>
 
+    <!-- Countdown Script -->
     <script src="js/script.js"></script>
 </body>
 

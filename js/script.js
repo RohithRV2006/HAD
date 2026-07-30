@@ -209,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Flip Timer ---
-    // Phase 1 Target: 3 August 2026, 07:00 AM IST (UTC+5:30 = 01:30 UTC) — Hackathon Start
-    const hackathonStart = new Date('2026-08-03T01:30:00Z').getTime();
-    // Phase 2 Target: 3 August 2026, 07:00 PM IST (UTC+5:30 = 13:30 UTC) — Hackathon End (12 hrs)
-    const hackathonEnd = new Date('2026-08-03T13:30:00Z').getTime();
+    // Phase 1 Target: 3 August 2026, 00:00 AM local time — Hackathon Start
+    const hackathonStart = new Date('August 3, 2026 00:00:00').getTime();
+    // Phase 2 Target: 4 August 2026, 00:00 AM local time — Hackathon End
+    const hackathonEnd = new Date('August 4, 2026 00:00:00').getTime();
 
     let currentPhase = 'pre'; // 'pre' = before hackathon, 'live' = during hackathon, 'done' = after
 
